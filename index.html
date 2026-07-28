@@ -11,10 +11,10 @@
     --surface:#ffffff; --plane:#f7f7f5;
     --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
     --grid:#e7e6e0; --baseline:#c3c2b7; --ring:rgba(11,11,11,.10);
-    --s1:#2a78d6; --s1-soft:#e8f0fb; --s2:#eb6834; --s2-soft:#fdeee7; --s3:#1baf7a; --s3-soft:#e4f5ee;
+    --s1:#7c3aed; --s1-soft:#f3e8ff; --s2:#eb6834; --s2-soft:#fdeee7; --s3:#1baf7a; --s3-soft:#e4f5ee;
     --gray-soft:#f0efec;
     --good:#006300; --good-bg:#e7f2e7;
-    --navy:#12141c;
+    --navy:#4c1d95; --accent2:#d13ba8;
   }
   *{box-sizing:border-box; margin:0; padding:0}
   body{background:var(--plane); color:var(--ink);
@@ -23,14 +23,14 @@
   .page{max-width:1300px; margin:0 auto; padding:28px 22px 48px}
 
   /* ---------- header ---------- */
-  header{background:radial-gradient(120% 180% at 0% 0%, #1c2233 0%, var(--navy) 55%); color:#fff;
+  header{background:linear-gradient(118deg, #5b21b6 0%, #7c3aed 52%, #c026d3 100%); color:#fff;
     border-radius:18px; padding:28px 34px 26px; display:flex; align-items:center; gap:24px;
     box-shadow:0 12px 32px rgba(18,20,28,.18); margin-bottom:20px}
   header .logo{width:88px; height:88px; border-radius:22px; flex:none; object-fit:cover;
     box-shadow:0 4px 14px rgba(0,0,0,.35), 0 0 0 3px rgba(255,255,255,.14)}
-  .brand{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#9aa3b8; margin-bottom:10px}
+  .brand{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#e9d5ff; margin-bottom:10px}
   header h1{font-size:28px; line-height:1.15; font-weight:700; letter-spacing:-.01em}
-  header .sub{color:#b9c0d2; margin-top:8px; font-size:14px}
+  header .sub{color:#ecdcfd; margin-top:8px; font-size:14px}
 
   /* ---------- agenda strip ---------- */
   .agenda{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0}
@@ -131,7 +131,7 @@
 
   .pill{display:inline-block; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:99px; vertical-align:2px}
   .pill.best{background:var(--good-bg); color:var(--good)}
-  .pill.live{background:var(--s1-soft); color:#1c5cab}
+  .pill.live{background:var(--s1-soft); color:#6d28d9}
   .pill.watch{background:#fdf3e0; color:#8a5a00}
   .pill.off{background:var(--gray-soft); color:var(--muted)}
 
@@ -162,7 +162,7 @@
 
   /* ---------- opportunities ---------- */
   .opp-hero{border:2px solid var(--s1); border-radius:16px; padding:22px 26px; background:linear-gradient(180deg,var(--s1-soft),#fff 65%); margin-bottom:18px}
-  .opp-hero .tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#1c5cab}
+  .opp-hero .tag{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#6d28d9}
   .opp-hero h2{font-size:20px; margin:6px 0 8px}
   .opp-hero p{font-size:14px; color:var(--ink-2); max-width:72ch}
   .opp-hero .terms{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
