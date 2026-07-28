@@ -25,7 +25,7 @@
   /* ---------- header ---------- */
   header{background:linear-gradient(118deg, #5b21b6 0%, #7c3aed 52%, #c026d3 100%); color:#fff;
     border-radius:18px; padding:28px 34px 26px; display:flex; align-items:center; gap:24px;
-    box-shadow:0 12px 32px rgba(18,20,28,.18); margin-bottom:20px}
+    box-shadow:0 12px 32px rgba(18,20,28,.18); margin-bottom:34px}
   header .logo{width:88px; height:88px; border-radius:22px; flex:none; object-fit:cover;
     box-shadow:0 4px 14px rgba(0,0,0,.35), 0 0 0 3px rgba(255,255,255,.14)}
   .brand{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#e9d5ff; margin-bottom:10px}
@@ -33,12 +33,12 @@
   header .sub{color:#ecdcfd; margin-top:8px; font-size:14px}
 
   /* ---------- agenda strip ---------- */
-  .agenda{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0}
-  .agenda .a{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:14px 16px;
+  .agenda{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 34px}
+  .agenda .a{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:20px 22px;
     box-shadow:0 1px 3px rgba(11,11,11,.04)}
   .agenda .a .n{font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--s1)}
-  .agenda .a h3{font-size:13.5px; margin:3px 0 3px}
-  .agenda .a p{font-size:12px; color:var(--ink-2); line-height:1.45}
+  .agenda .a h3{font-size:14px; margin:8px 0 6px}
+  .agenda .a p{font-size:12.5px; color:var(--muted); line-height:1.5}
 
   /* ---------- integrated sidebar rail ---------- */
   .layout{display:grid; grid-template-columns:212px minmax(0,1fr); gap:30px; align-items:stretch}
@@ -94,8 +94,8 @@
   .pnav button:hover .t{color:var(--navy)}
 
   /* ---------- kpi tiles ---------- */
-  .kpis{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:0 0 18px}
-  .kpi{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:16px 18px;
+  .kpis{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:0 0 34px}
+  .kpi{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:20px 20px;
     box-shadow:0 1px 3px rgba(11,11,11,.04)}
   .kpi .lbl{font-size:12px; color:var(--ink-2); margin-bottom:4px}
   .kpi .val{font-size:26px; font-weight:700; letter-spacing:-.01em}
@@ -104,10 +104,10 @@
 
   /* ---------- sections ---------- */
   section{background:var(--surface); border:1px solid var(--ring); border-radius:16px;
-    padding:22px 26px; margin-bottom:18px; box-shadow:0 1px 3px rgba(11,11,11,.04)}
+    padding:28px 30px; margin-bottom:28px; box-shadow:0 1px 3px rgba(11,11,11,.04)}
   h2{font-size:16px; font-weight:700}
   h3{font-size:14px; font-weight:700}
-  .sec-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:4px; flex-wrap:wrap}
+  .sec-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:10px; flex-wrap:wrap}
   .sec-sub{font-size:13px; color:var(--ink-2)}
   .chart-wrap{position:relative; margin-top:12px}
   svg{max-width:100%; height:auto; display:block}
@@ -254,10 +254,10 @@
   <!-- ================= OVERVIEW ================= -->
   <div class="panel active" id="tab-overview">
     <div class="agenda">
-      <div class="a"><div class="n">01 · PERFORMANCE</div><h3>Headline numbers &amp; trend</h3><p>Where we are vs last check-in, and how efficiency held through the scale-up.</p></div>
-      <div class="a"><div class="n">02 · GEOS</div><h3>Over / under performers</h3><p>DE over-delivering, IT developing — and shortlisting the next markets to test.</p></div>
-      <div class="a"><div class="n">03 · CREATIVES</div><h3>Performance &amp; cadence</h3><p>Top/bottom performers, refresh rhythm, and the benchmarks we grade against.</p></div>
-      <div class="a"><div class="n">04 · OPPORTUNITY</div><h3>Payer campaign pilot</h3><p>Purpose-built to find IAP buyers &amp; whales — proposal in the Growth tab.</p></div>
+      <div class="a"><div class="n">01 · PERFORMANCE</div><h3>Headline numbers &amp; trend</h3><p>Where we are since last check-in.</p></div>
+      <div class="a"><div class="n">02 · GEOS</div><h3>Over / under performers</h3><p>DE, IT — and what to launch next.</p></div>
+      <div class="a"><div class="n">03 · CREATIVES</div><h3>Performance &amp; cadence</h3><p>Top &amp; bottom, refresh rhythm.</p></div>
+      <div class="a"><div class="n">04 · OPPORTUNITY</div><h3>Payer campaign pilot</h3><p>Finding IAP buyers &amp; whales.</p></div>
     </div>
     <div class="kpis">
       <div class="kpi"><div class="lbl">Total spend</div><div class="val">$1.31M</div><div class="note">run-rate <b>×2.3</b> vs first 4 weeks</div></div>
