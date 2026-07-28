@@ -101,6 +101,9 @@
   .kpi .val{font-size:26px; font-weight:700; letter-spacing:-.01em}
   .kpi .note{font-size:12px; color:var(--muted); margin-top:3px}
   .kpi .note b{color:var(--good); font-weight:600}
+  .mnote{font-size:12.5px; color:var(--ink-2); background:var(--s1-soft); border:1px solid var(--ring);
+    border-radius:10px; padding:11px 16px; margin:-20px 0 34px; line-height:1.5}
+  .mnote b{color:var(--ink)}
 
   /* ---------- sections ---------- */
   section{background:var(--surface); border:1px solid var(--ring); border-radius:16px;
@@ -266,6 +269,7 @@
       <div class="kpi"><div class="lbl">D7 Total ROAS</div><div class="val">5.4%</div><div class="note">5.1% last 4 wks vs 5.7% first 4 — band held while scaling ×2.3</div></div>
       <div class="kpi"><div class="lbl">D1 Retention</div><div class="val">17.0%</div><div class="note">iOS ≈21% · Android ≈13%</div></div>
     </div>
+    <div class="mnote">ⓘ <b>Measurement note:</b> ROAS in this report is network-side and reads <b>30–40% below</b> Atlas Earth's internal numbers, since some down-funnel data points aren't shared with networks. Absolute levels are conservative; trends and campaign-to-campaign comparisons remain accurate.</div>
 
     <section>
       <div class="sec-head">
@@ -517,15 +521,16 @@
           </ul></div>
         <div class="b"><h3>Benchmarks we grade against</h3>
           <ul>
-            <li><b>IPM vs campaign average</b> — kill below ~80% of avg after a fair test spend</li>
-            <li><b>D1/D7 ROAS per creative</b> — a high-IPM asset that buys non-payers doesn't survive</li>
-            <li>eCPM &amp; CVR as supporting signals (fatigue shows up here first)</li>
+            <li><b>CVR vs campaign average</b> — remove below ~80% after a minimum test spend</li>
+            <li><b>D1/D7 ROAS per creative</b> — high CVR that buys non-payers doesn't survive</li>
+            <li><b>eCPM as a supporting signal</b> — watch for early fatigue</li>
+            <li><b>Cadence</b> — review weekly; remove and rotate on a fixed interval</li>
           </ul></div>
         <div class="b"><h3>Test protocol</h3>
           <ul>
-            <li>Each new asset gets a defined test budget before judgment — no eyeballing day-2 data</li>
-            <li>Winners scale into all relevant campaigns; learnings (hook style, theme) feed the next batch</li>
-            <li>Geo launches get localized variants within the first refresh cycle</li>
+            <li>Each new asset is loaded <b>paired with winning interactive end-cards</b></li>
+            <li>Top winning creatives are kept while non-winners are rotated out for new creatives</li>
+            <li>Localized creatives are added to geo-specific campaigns</li>
           </ul></div>
       </div>
       <div class="sec-head" style="margin-top:18px"><h3>Where we need Atlas</h3></div>
@@ -538,7 +543,7 @@
   </div>
 
   <footer>
-    <b>Data notes:</b> Unity dashboard export, Apr 27 – Jul 27, 2026. ROAS figures are spend-weighted over matured cohorts only — D7 through Jul 19, D1 through Jul 24; recent days showing 0% ROAS in raw exports are cohort immaturity, not a performance drop. Retention is install-weighted; IPM = installs per 1,000 impressions.
+    <b>Data notes:</b> Unity dashboard export, Apr 27 – Jul 27, 2026. ROAS figures are spend-weighted over matured cohorts only — D7 through Jul 19, D1 through Jul 24; recent days showing 0% ROAS in raw exports are cohort immaturity, not a performance drop. Retention is install-weighted; IPM = installs per 1,000 impressions. Network-side ROAS reads 30–40% below Atlas Earth's internal attribution (not all down-funnel data points are shared with networks) — levels are conservative, trends are accurate.
   </footer>
   </main>
   </div><!-- /layout -->
