@@ -177,6 +177,25 @@
   .opp h3{margin:4px 0 6px}
   .opp p{font-size:13px; color:var(--ink-2)}
 
+  /* ---------- vector tab ---------- */
+  .roadmap{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:16px}
+  .rq h3{font-size:15px; padding-bottom:10px; border-bottom:2px solid var(--ink)}
+  .r-item{border-bottom:1px solid var(--grid); padding:11px 2px 10px}
+  .r-item .r-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px}
+  .r-item b{font-weight:600; color:var(--ink); font-size:12.5px; line-height:1.35}
+  .r-st{font-size:9.5px; font-weight:800; letter-spacing:.14em; white-space:nowrap}
+  .r-st.live{color:var(--good)} .r-st.alpha{color:var(--accent2)}
+  .r-why{font-size:11px; color:var(--s1); font-weight:600; margin-top:4px}
+  .chk-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px}
+  .chk{border:1px solid var(--ring); border-radius:14px; padding:18px 20px}
+  .chk.locked{background:var(--s1-soft); border-color:var(--s1)}
+  .chk h3{font-size:14px; margin-bottom:12px; display:flex; align-items:center; gap:8px}
+  .chk-item{display:flex; gap:10px; padding:9px 0; border-top:1px solid var(--grid); font-size:12.5px}
+  .chk.locked .chk-item{border-top-color:rgba(124,58,237,.18)}
+  .chk-item .ic{flex:none; font-size:14px; line-height:1.4}
+  .chk-item b{display:block; color:var(--ink)}
+  .chk-item span{color:var(--ink-2)}
+
   /* ---------- creatives ---------- */
   .bench{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px}
   .bench .b{border:1px solid var(--ring); border-radius:12px; padding:14px 16px}
@@ -204,8 +223,8 @@
   }
   @media (max-width:820px){
     .kpis{grid-template-columns:repeat(2,1fr)} .strip{grid-template-columns:repeat(2,1fr)}
-    .two-col,.opps,.bench,.talk{grid-template-columns:1fr}
-    .agenda{grid-template-columns:repeat(2,1fr)}
+    .two-col,.opps,.bench,.talk,.chk-grid{grid-template-columns:1fr}
+    .agenda,.roadmap{grid-template-columns:repeat(2,1fr)}
     header{padding:22px; gap:16px}
     header .logo{width:64px; height:64px; border-radius:16px}
     .oneline{max-width:none}
@@ -238,7 +257,8 @@
         <button role="tab" aria-selected="false" data-tab="de"        data-name="Germany"><span class="dot"></span>Germany<span class="idx">03</span></button>
         <button role="tab" aria-selected="false" data-tab="it"        data-name="Italy"><span class="dot"></span>Italy<span class="idx">04</span></button>
         <button role="tab" aria-selected="false" data-tab="growth"    data-name="Growth &amp; Opportunities"><span class="dot"></span>Growth &amp; Opportunities<span class="idx">05</span></button>
-        <button role="tab" aria-selected="false" data-tab="creatives" data-name="Creatives"><span class="dot"></span>Creatives<span class="idx">06</span></button>
+        <button role="tab" aria-selected="false" data-tab="vector"    data-name="Vector &amp; Data"><span class="dot"></span>Vector &amp; Data<span class="idx">06</span></button>
+        <button role="tab" aria-selected="false" data-tab="creatives" data-name="Creatives"><span class="dot"></span>Creatives<span class="idx">07</span></button>
       </nav>
       <div class="side-hint">Click a section, use the <kbd>←</kbd> <kbd>→</kbd> keys, or the Next buttons at the end of each section.</div>
     </div>
@@ -456,6 +476,79 @@
         <div class="opp"><div class="num">07</div><h3>Italy iteration</h3>
           <p>Localized creatives + bid tuning at current scale; re-check monthly against D7 ≥ 5% before adding budget.</p></div>
       </div>
+    </section>
+  </div>
+
+  <!-- ================= VECTOR & DATA ================= -->
+  <div class="panel" id="tab-vector">
+    <section>
+      <div class="sec-head">
+        <h2>Unity Vector — the intelligence layer behind your campaigns</h2>
+        <span class="sec-sub">A continuously learning model stack optimizing UA &amp; monetization on signals from across the gaming ecosystem</span>
+      </div>
+      <div class="strip" style="grid-template-columns:repeat(3,1fr)">
+        <div class="st"><div class="lbl">Network spend growth since Vector</div><div class="val">×2.5</div><div class="note">Feb '25 → May '26, network-wide</div></div>
+        <div class="st"><div class="lbl">Your D28 optimizers</div><div class="val">Open Beta</div><div class="note">D28 IAP + Ad/Hybrid — Atlas Earth runs both</div></div>
+        <div class="st"><div class="lbl">Payer optimization</div><div class="val">Live</div><div class="note">shipped Q2 — the engine behind the proposed pilot</div></div>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin-top:16px; max-width:88ch; line-height:1.55">
+        Every campaign in this report runs on Vector, and it gets measurably better every quarter — the D28 optimizers your account
+        scaled with this quarter are a direct product of it. <b style="color:var(--ink)">Signal quality is what feeds it:</b> when data is
+        fragmented, the models fill blind spots themselves; with a stronger data foundation Vector reaches higher-LTV players,
+        scales with more optimization confidence, and improves conversion quality over time.
+      </p>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <h2>2026 roadmap — what's live, what's coming</h2>
+        <span class="sec-sub">Highlights relevant to Atlas Earth marked in violet · dates are open-beta targets, subject to change</span>
+      </div>
+      <div class="roadmap">
+        <div class="rq"><h3>Q1</h3>
+          <div class="r-item"><div class="r-top"><b>D28 IAP ROAS Campaign</b><span class="r-st live">LIVE</span></div><div class="r-why">Powers your iOS &amp; Android D28 lines</div></div>
+          <div class="r-item"><div class="r-top"><b>Simplified ROAS Onboarding</b><span class="r-st live">LIVE</span></div></div>
+        </div>
+        <div class="rq"><h3>Q2</h3>
+          <div class="r-item"><div class="r-top"><b>D28 Ad Revenue &amp; Hybrid ROAS</b><span class="r-st live">LIVE</span></div><div class="r-why">Your hybrid model, optimized end-to-end</div></div>
+          <div class="r-item"><div class="r-top"><b>CPE Retention Optimization</b><span class="r-st live">LIVE</span></div></div>
+          <div class="r-item"><div class="r-top"><b>CPE Payer Campaign Optimization</b><span class="r-st live">LIVE</span></div><div class="r-why">The proposed Payer pilot runs on this</div></div>
+          <div class="r-item"><div class="r-top"><b>Multi-Country Budget</b><span class="r-st live">LIVE</span></div><div class="r-why">Simplifies the DE / IT / next-geo setup</div></div>
+        </div>
+        <div class="rq"><h3>Q3</h3>
+          <div class="r-item"><div class="r-top"><b>CPE Custom Event Optimization</b><span class="r-st alpha">ALPHA</span></div></div>
+          <div class="r-item"><div class="r-top"><b>Unified Creative Library</b><span class="r-st alpha">ALPHA</span></div></div>
+          <div class="r-item"><div class="r-top"><b>Campaign Assistant</b><span class="r-st alpha">ALPHA</span></div></div>
+          <div class="r-item"><div class="r-top"><b>Unity Ads MCP</b><span class="r-st alpha">ALPHA</span></div></div>
+        </div>
+        <div class="rq"><h3>Q4</h3>
+          <div class="r-item"><div class="r-top"><b>AI Creative Generation</b><span class="r-st alpha">ALPHA</span></div><div class="r-why">Feeds the refresh cadence we run for you</div></div>
+          <div class="r-item"><div class="r-top"><b>Dynamic Creative Optimization</b><span class="r-st alpha">ALPHA</span></div></div>
+          <div class="r-item"><div class="r-top"><b>Creative Insights</b><span class="r-st alpha">ALPHA</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <h2>Your data activation status — feeding Vector more signal</h2>
+        <span class="sec-sub">This is the same story as the 30–40% measurement gap: more shared signal → Vector optimizes on truer value</span>
+      </div>
+      <div class="chk-grid">
+        <div class="chk">
+          <h3>✅ Enabled today</h3>
+          <div class="chk-item"><span class="ic">✔️</span><div><b>MMP integration</b><span>Acquisition, conversion, and player-value signals.</span></div></div>
+          <div class="chk-item"><span class="ic">✔️</span><div><b>MMP lifetime postbacks</b><span>Lets Vector learn from long-term player behavior.</span></div></div>
+          <div class="chk-item"><span class="ic">✔️</span><div><b>Unity Ads SDK + Android license key</b><span>Cleaner ad experience and purchase-validation signals.</span></div></div>
+        </div>
+        <div class="chk locked">
+          <h3>🔒 Developer Data Framework — the unlock</h3>
+          <div class="chk-item"><span class="ic">◻︎</span><div><b>Google Analytics linking</b><span>Behavioral context and engagement signals attribution alone can't provide.</span></div></div>
+          <div class="chk-item"><span class="ic">◻︎</span><div><b>Unity IAP SDK</b><span>Expands purchase-signal coverage, including future D2C data.</span></div></div>
+          <div class="chk-item"><span class="ic">◻︎</span><div><b>Runtime data</b><span>Behavioral context from how players actually experience the game.</span></div></div>
+        </div>
+      </div>
+      <div class="reco"><b>The ask:</b> one consent toggle in the Unity Dashboard (Developer Data Framework) plus GA linking and an IAP SDK update on your side. Today, some down-funnel signal never reaches the networks — that's the 30–40% gap you see between our reporting and yours. Every signal enabled here narrows that gap where it matters most: in what Vector optimizes toward.</div>
     </section>
   </div>
 
