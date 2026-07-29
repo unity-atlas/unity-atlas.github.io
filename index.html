@@ -534,6 +534,81 @@
         <h2>Your data activation status — feeding Vector more signal</h2>
         <span class="sec-sub">This is the same story as the 30–40% measurement gap: more shared signal → Vector optimizes on truer value</span>
       </div>
+
+      <div class="chart-wrap" style="margin:18px 0 6px">
+        <svg viewBox="0 0 1000 410" width="100%" role="img" aria-label="Diagram: data signals flowing into Unity Vector and the outcomes that improve">
+          <defs>
+            <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="var(--good)"/>
+            </marker>
+          </defs>
+          <text x="30" y="26" style="font-size:11; font-weight:700; fill:var(--muted); letter-spacing:2">SIGNALS IN</text>
+          <text x="760" y="26" style="font-size:11; font-weight:700; fill:var(--muted); letter-spacing:2">WHAT IMPROVES</text>
+
+          <!-- enabled source pills -->
+          <g font-size="12.5" font-weight="600">
+            <rect x="30" y="46"  width="215" height="38" rx="10" fill="var(--s1-soft)" stroke="var(--s1)" stroke-width="1"/>
+            <text x="46" y="70" style="font-size:12.5px; font-weight:600; fill:var(--ink)">✓ MMP integration</text>
+            <rect x="30" y="104" width="215" height="38" rx="10" fill="var(--s1-soft)" stroke="var(--s1)" stroke-width="1"/>
+            <text x="46" y="128" style="font-size:12.5px; font-weight:600; fill:var(--ink)">✓ MMP lifetime postbacks</text>
+            <rect x="30" y="162" width="215" height="38" rx="10" fill="var(--s1-soft)" stroke="var(--s1)" stroke-width="1"/>
+            <text x="46" y="186" style="font-size:12.5px; font-weight:600; fill:var(--ink)">✓ Unity Ads SDK + license key</text>
+            <!-- locked source pills -->
+            <rect x="30" y="238" width="215" height="38" rx="10" fill="var(--surface)" stroke="var(--baseline)" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <text x="46" y="262" style="font-size:12.5px; font-weight:600; fill:var(--ink-2)">🔒 Google Analytics</text>
+            <rect x="30" y="296" width="215" height="38" rx="10" fill="var(--surface)" stroke="var(--baseline)" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <text x="46" y="320" style="font-size:12.5px; font-weight:600; fill:var(--ink-2)">🔒 Unity IAP SDK</text>
+            <rect x="30" y="354" width="215" height="38" rx="10" fill="var(--surface)" stroke="var(--baseline)" stroke-width="1.2" stroke-dasharray="5 4"/>
+            <text x="46" y="378" style="font-size:12.5px; font-weight:600; fill:var(--ink-2)">🔒 Runtime data</text>
+          </g>
+
+          <!-- connectors: enabled solid -->
+          <g fill="none" stroke="var(--s1)" stroke-width="2">
+            <path d="M247,65  C 340,65  380,205 448,205"/>
+            <path d="M247,123 C 340,123 380,208 448,208"/>
+            <path d="M247,181 C 340,181 380,212 448,212"/>
+          </g>
+          <!-- connectors: locked dashed -->
+          <g fill="none" stroke="var(--baseline)" stroke-width="2" stroke-dasharray="6 5">
+            <path d="M247,257 C 340,257 380,224 448,224"/>
+            <path d="M247,315 C 340,315 380,228 448,228"/>
+            <path d="M247,373 C 340,373 380,232 448,232"/>
+          </g>
+          <g fill="var(--s1)">
+            <circle cx="247" cy="65" r="4"/><circle cx="247" cy="123" r="4"/><circle cx="247" cy="181" r="4"/>
+          </g>
+          <g fill="var(--baseline)">
+            <circle cx="247" cy="257" r="4"/><circle cx="247" cy="315" r="4"/><circle cx="247" cy="373" r="4"/>
+          </g>
+
+          <!-- hub -->
+          <circle cx="512" cy="215" r="80" fill="var(--s1-soft)" opacity=".55"/>
+          <circle cx="512" cy="215" r="62" fill="var(--s1)"/>
+          <text x="512" y="208" text-anchor="middle" style="font-size:16; font-weight:800; fill:#fff">Unity</text>
+          <text x="512" y="228" text-anchor="middle" style="font-size:16; font-weight:800; fill:#fff">Vector</text>
+          <text x="512" y="316" text-anchor="middle" style="font-size:11; fill:var(--muted); font-style:italic">learns continuously from every signal</text>
+
+          <!-- outcomes -->
+          <g fill="none" stroke="var(--good)" stroke-width="2" marker-end="url(#arr)">
+            <path d="M576,196 C 650,170 680,110 752,95"/>
+            <path d="M578,215 C 650,215 680,205 752,205"/>
+            <path d="M576,234 C 650,260 680,300 752,315"/>
+          </g>
+          <g font-size="12.5" font-weight="600">
+            <rect x="758" y="76"  width="212" height="38" rx="10" fill="var(--good-bg)" stroke="var(--good)" stroke-width="1"/>
+            <text x="774" y="100" style="font-size:12.5px; font-weight:600; fill:var(--ink)">Higher-LTV players</text>
+            <rect x="758" y="186" width="212" height="38" rx="10" fill="var(--good-bg)" stroke="var(--good)" stroke-width="1"/>
+            <text x="774" y="210" style="font-size:12.5px; font-weight:600; fill:var(--ink)">More scale confidence</text>
+            <rect x="758" y="296" width="212" height="38" rx="10" fill="var(--good-bg)" stroke="var(--good)" stroke-width="1"/>
+            <text x="774" y="320" style="font-size:12.5px; font-weight:600; fill:var(--ink)">Better conversion quality</text>
+          </g>
+        </svg>
+        <div style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:6px">
+          <span style="color:var(--s1); font-weight:700">━</span> flowing today&ensp;·&ensp;
+          <span style="font-weight:700">╌╌</span> locked behind the Developer Data Framework consent — half of Vector's picture is currently dark
+        </div>
+      </div>
+
       <div class="chk-grid">
         <div class="chk">
           <h3>✅ Enabled today</h3>
@@ -543,12 +618,12 @@
         </div>
         <div class="chk locked">
           <h3>🔒 Developer Data Framework — the unlock</h3>
-          <div class="chk-item"><span class="ic">◻︎</span><div><b>Google Analytics linking</b><span>Behavioral context and engagement signals attribution alone can't provide.</span></div></div>
+          <div class="chk-item"><span class="ic">◻︎</span><div><b>Google Analytics linking</b><span>Behavioral context and engagement signals attribution alone can't provide. <a href="https://alonhaliva.github.io/unity-ga-linking-guide/" target="_blank" rel="noopener" style="color:var(--s1); font-weight:600">Step-by-step setup guide ↗</a></span></div></div>
           <div class="chk-item"><span class="ic">◻︎</span><div><b>Unity IAP SDK</b><span>Expands purchase-signal coverage, including future D2C data.</span></div></div>
           <div class="chk-item"><span class="ic">◻︎</span><div><b>Runtime data</b><span>Behavioral context from how players actually experience the game.</span></div></div>
         </div>
       </div>
-      <div class="reco"><b>The ask:</b> one consent toggle in the Unity Dashboard (Developer Data Framework) plus GA linking and an IAP SDK update on your side. Today, some down-funnel signal never reaches the networks — that's the 30–40% gap you see between our reporting and yours. Every signal enabled here narrows that gap where it matters most: in what Vector optimizes toward.</div>
+      <div class="reco"><b>The ask:</b> one consent toggle in the Unity Dashboard (Developer Data Framework) plus GA linking and an IAP SDK update on your side. Today, some down-funnel signal never reaches the networks — that's the 30–40% gap you see between our reporting and yours. Every signal enabled here narrows that gap where it matters most: in what Vector optimizes toward. GA linking takes ~10 minutes with the <a href="https://alonhaliva.github.io/unity-ga-linking-guide/" target="_blank" rel="noopener" style="color:var(--good); font-weight:700">walkthrough we prepared ↗</a>.</div>
     </section>
   </div>
 
