@@ -289,7 +289,7 @@
       <div class="kpi"><div class="lbl">D7 Total ROAS</div><div class="val">5.4%</div><div class="note">5.1% last 4 wks vs 5.7% first 4 — band held while scaling ×2.3</div></div>
       <div class="kpi"><div class="lbl">D1 Retention</div><div class="val">17.0%</div><div class="note">iOS 21% · Android 13%</div></div>
     </div>
-    <div class="mnote">ⓘ <b>Measurement note:</b> Unity-side ROAS reads <b>30–40% below</b> your internal reporting (and fluctuates), since not all data points are shared — a 5% here can be 10% on your side. Reports are being cross-checked; trends and comparisons stay accurate.</div>
+    <div class="mnote">ⓘ <b>Measurement note:</b> Unity-side ROAS reads <b>30–40% below</b> your internal reporting — reports are being cross-checked; trends and comparisons stay accurate.</div>
 
     <section>
       <div class="sec-head">
@@ -379,7 +379,7 @@
         </tbody>
       </table>
 
-      <div class="warnbox"><b>Two budget proposals:</b>&ensp;<b>iOS D7</b> — cap is $8K but efficient spend is $5–6K: set the budget to $6K and reallocate the $2K to the Payer campaign. We're not hitting the cap, so no need to lower ROAS targets.&ensp;<b>Android D28</b> — incremental budget from Liz, or shift $1,500/day over from the Android D7 line.</div>
+      <div class="warnbox"><b>Two budget proposals:</b>&ensp;<b>iOS D7</b> — set the budget to $6K and move the $2K to the Payer campaign.&ensp;<b>Android D28</b> — incremental budget from Liz, or shift $1,500/day from Android D7.</div>
     </section>
   </div>
 
@@ -408,7 +408,7 @@
           <div class="chart-wrap" id="deChart"></div>
         </div>
       </div>
-      <div class="reco"><b>Recommendation — Germany earned expansion, two ways:</b>&ensp;<b>1) Launch iOS</b> — it's Android-only today and iOS is the stronger platform overall.&ensp;<b>2) Add a DE Hybrid D28 campaign</b> — the D28 optimizer is where your best payback profiles live, and this market is IAP-led. Goal update already made (target now aggressive); both launches ride a proven market.</div>
+      <div class="reco"><b>Recommendation:</b> Germany earned expansion — <b>launch iOS</b> and <b>add a DE Hybrid D28 campaign</b>. Goal update already made.</div>
     </section>
   </div>
 
@@ -436,7 +436,7 @@
           <div class="chart-wrap" id="itChart"></div>
         </div>
       </div>
-      <div class="warnbox"><b>Status &amp; next:</b> goal change already made — ROAS target now aggressive; monitoring at current scale. Localized creatives next, and a candidate for the iOS test alongside Germany.</div>
+      <div class="warnbox"><b>Status:</b> goal change made — target now aggressive; monitoring. Next: localized creatives + join the iOS test.</div>
     </section>
   </div>
 
@@ -445,16 +445,14 @@
     <div class="opp-hero">
       <div class="tag">New opportunity · proposed pilot</div>
       <h2>Payer campaign — built to find your IAP buyers</h2>
-      <p>A Payer campaign finds the users most likely to make IAP purchases — complementing your ROAS campaigns and
-      built for hunting <b>whales</b>. Your data already shows the pattern: the two best-payback lines on the account
-      (DE 8.5%, iOS D28 6.2%) are both IAP-led.</p>
+      <p>Finds the users most likely to make IAP purchases — built for hunting <b>whales</b>. Your two best-payback lines (DE, iOS D28) are already IAP-led.</p>
       <div class="terms">
         <div class="term"><b>$1K/day per OS</b>proposed pilot budget (iOS + Android)</div>
         <div class="term"><b>US first</b>deepest signal density, fastest read</div>
         <div class="term"><b>4-week read</b>graded on D7/D28 IAP ROAS + payer rate</div>
         <div class="term"><b>Low risk</b>7% of current weekly spend</div>
       </div>
-      <p style="margin-top:14px"><b>Funding:</b> on iOS this comes from the D7 reallocation ($8K cap → $6K budget frees $2K) — no incremental ask needed.</p>
+      <p style="margin-top:14px"><b>Funding:</b> covered by the iOS D7 reallocation — no incremental ask.</p>
     </div>
 
     <section>
@@ -600,7 +598,7 @@
         </svg>
         <div style="font-size:11.5px; color:var(--muted); text-align:center; margin-top:6px">
           <span style="color:var(--s1); font-weight:700">━</span> flowing today&ensp;·&ensp;
-          <span style="font-weight:700">╌╌</span> locked behind the Developer Data Framework consent — half of Vector's picture is currently dark
+          <span style="font-weight:700">╌╌</span> locked behind the Developer Data Framework consent
         </div>
       </div>
 
@@ -618,7 +616,7 @@
           <div class="chk-item"><span class="ic">◻︎</span><div><b>Runtime data</b><span>Behavioral context from how players actually experience the game.</span></div></div>
         </div>
       </div>
-      <div class="reco"><b>The ask:</b> one consent toggle in the Unity Dashboard (Developer Data Framework) plus GA linking and an IAP SDK update on your side. Today, some down-funnel signal never reaches the networks — that's the 30–40% gap you see between our reporting and yours. Every signal enabled here narrows that gap where it matters most: in what Vector optimizes toward. GA linking takes 10 minutes with the <a href="https://alonhaliva.github.io/unity-ga-linking-guide/" target="_blank" rel="noopener" style="color:var(--good); font-weight:700">walkthrough we prepared ↗</a>.</div>
+      <div class="reco"><b>The ask:</b> one Dashboard consent (Developer Data Framework) + GA linking + an IAP SDK update — every signal enabled narrows the 30–40% gap. GA linking takes 10 minutes with the <a href="https://alonhaliva.github.io/unity-ga-linking-guide/" target="_blank" rel="noopener" style="color:var(--good); font-weight:700">walkthrough we prepared ↗</a>.</div>
     </section>
   </div>
 
@@ -676,7 +674,7 @@
 
     <section>
       <div class="sec-head"><h2>How we run creative optimization — cadence &amp; benchmarks</h2></div>
-      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Playables convert best.</b> Rotating fresh playables every few weeks is the highest-impact creative motion — send us a new batch on that cadence and we handle the rest. We've already shipped simple one-tap localized playables with the Storm team as a value-add.</div>
+      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Playables convert best</b> — send us a fresh batch every few weeks and we handle the rest (one-tap localized playables already shipped with the Storm team).</div>
       <div class="bench">
         <div class="b"><h3>Refresh cadence</h3>
           <ul>
