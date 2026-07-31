@@ -351,6 +351,16 @@
       <p style="font-size:13px; color:var(--ink-2); margin-top:10px">Retention and payback move together. Germany and iOS D28 sit top right, and tCPE (bottom left) is why we cut it.</p>
     </section>
 
+    <section>
+      <div class="sec-head">
+        <h2>Where the spend goes: top sources</h2>
+        <span class="sec-sub">Top 10 source apps by spend, last 30 days · hover for details</span>
+      </div>
+      <div class="chart-wrap" id="srcChart"></div>
+      <p style="font-size:13px; color:var(--ink-2); margin-top:10px">Healthy spread: the top 10 sources are only 17% of spend, so no single app carries the account.</p>
+    </section>
+
+
 
   </div>
 
@@ -529,6 +539,26 @@
         <div class="opp"><div class="num">07</div><h3>Android D7: the watch item</h3>
           <p>July payback dipped to 4.4% (from 8.3% in May) and it was this week's flagged concern, tighten creatives and bids before any added budget; it's also the donor line for the D28 shift, which naturally de-risks it.</p></div>
       </div>
+    </section>
+
+    <section>
+      <div class="sec-head">
+        <h2>New: long-form video, 61 to 120 seconds</h2>
+        <span class="sec-sub">Limited access for selected advertisers · Video &amp; End Card and Video &amp; Playable formats</span>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-2); margin-top:6px">Longer videos give the story room, and Atlas Earth has a story that needs more than 30 seconds: real land, real neighborhoods, rent that adds up.</p>
+      <div class="chips">
+        <div class="chip"><b>38% vs 49%</b><span>long video gets skipped less than short on skippable placements</span></div>
+        <div class="chip"><b>7 to 10s</b><span>skippers leave early no matter the length, the opening decides it</span></div>
+        <div class="chip"><b>ROAS ×2</b><span>long-form value roughly doubles from day 7 to day 28</span></div>
+        <div class="chip"><b>Limited access</b><span>keeps longer-video costs healthy across the network</span></div>
+      </div>
+      <ul class="why" style="margin-top:14px">
+        <li>Long video holds attention at least as well as short: higher completion, day-7 retention and click-through.</li>
+        <li>Value builds over time and strengthens faster than short video.</li>
+        <li>The ask: brief one 60 to 90 second narrative video for the next creative batch.</li>
+      </ul>
+      <p style="font-size:12.5px; color:var(--muted); margin-top:10px">Talk track: reporting dimensions for video length are already in the dashboard and Report Builder. Position it as an invite: Atlas Earth is on the selected list.</p>
     </section>
   </div>
 
@@ -764,7 +794,7 @@
 
     <section>
       <div class="sec-head"><h2>How we run creative optimization</h2></div>
-      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Playables convert best.</b> Rotating fresh playables every few weeks is the single highest-impact creative motion, if they can send a new batch on that cadence, it's the best thing they can do for performance. Mention the value-add: we already shipped simple one-tap localized playables with the Storm team. New creative manager joining their side, offer to set the rotation calendar with her.</div>
+      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Video and playables are the best converting formats we run.</b> Playables lead, and the top videos pair with them as end cards. Rotating fresh playables every few weeks is the single highest-impact creative motion, if they can send a new batch on that cadence it's the best thing they can do for performance. Mention the value-add: we already shipped one-tap localized playables with the Storm team. New creative manager joining their side, offer to set the rotation calendar with her. If format priorities come up: playables first, video second, statics only as support.</div>
       <div class="bench">
         <div class="b"><h3>Refresh cadence</h3>
           <ul>
@@ -1141,6 +1171,43 @@ renderGeoChart('itChart',
     c.closest('.phone').querySelector('iframe').src = c.dataset.src;
     c.style.display = 'none';
   }));
+})();
+</script>
+<script>
+(() => {
+  const el = document.getElementById('srcChart'); if (!el) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const S = [
+    {n:"JustPlay", s:3912, i:376, r:2.06}, {n:"Pogo", s:2027, i:163, r:1.07},
+    {n:"Meowdoku", s:1936, i:86, r:2.53}, {n:"CryptoDiggers", s:1679, i:148, r:4.32},
+    {n:"Pixel Flow", s:1132, i:49, r:1.11}, {n:"Freereels", s:1084, i:154, r:3.16},
+    {n:"Triumph Kit Unity Package", s:1007, i:36, r:1.21}, {n:"Eureka: Earn money for surveys", s:964, i:90, r:1.48},
+    {n:"DramaWave", s:925, i:37, r:1.15}, {n:"GeoSmile", s:839, i:24, r:1.00},
+  ];
+  const tip = document.getElementById('tip');
+  const W=1008, ML=250, MR=90, rowH=32, MT=10, MB=26, iw=W-ML-MR, maxV=4000;
+  const H = MT + S.length*rowH + MB;
+  const svg = document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%');
+  let g='';
+  for (const t of [0,1000,2000,3000,4000]){ const x = ML + (t/maxV)*iw;
+    g += `<line x1="${x}" x2="${x}" y1="${MT}" y2="${H-MB}" stroke="${t===0?'var(--baseline)':'var(--grid)'}" stroke-width="1"/>`;
+    g += `<text x="${x}" y="${H-MB+16}" text-anchor="middle">$${t/1000}K</text>`; }
+  S.forEach((d,i)=>{ const y = MT + i*rowH + 6, bh = rowH-12, w = (d.s/maxV)*iw;
+    g += `<text class="rname" x="${ML-10}" y="${y+bh/2+4}" text-anchor="end">${d.n}</text>`;
+    g += `<path class="sb" data-i="${i}" d="M${ML},${y} h${Math.max(w-4,0)} a4,4 0 0 1 4,4 v${bh-8} a4,4 0 0 1 -4,4 h${-Math.max(w-4,0)} z" fill="var(--s1)"/>`;
+    g += `<text class="rlabel" x="${ML+w+8}" y="${y+bh/2+4}">$${(d.s/1000).toFixed(1)}K</text>`; });
+  svg.innerHTML = g; el.appendChild(svg);
+  svg.addEventListener('mousemove', ev => { const t2 = ev.target.closest('.sb');
+    if (!t2){ tip.style.opacity = 0; return; }
+    const d = S[+t2.dataset.i];
+    tip.innerHTML = `<div class="t-h">${d.n}</div>Spend $${d.s.toLocaleString()} · ${d.i} installs<br>D1 ROAS ${d.r.toFixed(2)}%`;
+    tip.style.opacity = 1; let x = ev.clientX+14, y = ev.clientY+14;
+    const r = tip.getBoundingClientRect();
+    if (x+r.width > innerWidth-8) x = ev.clientX-r.width-14;
+    if (y+r.height > innerHeight-8) y = ev.clientY-r.height-14;
+    tip.style.left = x+'px'; tip.style.top = y+'px'; });
+  svg.addEventListener('mouseleave', () => tip.style.opacity = 0);
 })();
 </script>
 </body>
