@@ -192,7 +192,9 @@
 
 
   /* ---------- live creative demo ---------- */
-  .creative-demo{display:grid; grid-template-columns:auto 1fr; gap:32px; align-items:center; margin-top:16px}
+  .creative-demo{display:grid; grid-template-columns:auto auto 1fr; gap:26px; align-items:center; margin-top:16px}
+  .phone-fig{margin:0; text-align:center}
+  .phone-fig figcaption{font-size:11.5px; font-weight:700; color:var(--ink-2); margin-top:10px; letter-spacing:.04em}
   .phone{position:relative; width:272px; height:566px; background:#111; border-radius:38px; padding:10px;
     box-shadow:0 18px 40px rgba(18,20,28,.25); flex:none}
   .phone iframe{width:100%; height:100%; border:none; border-radius:28px; background:#000; display:block}
@@ -730,19 +732,29 @@
 
     <section>
       <div class="sec-head">
-        <h2>The current top performer, live</h2>
-        <span class="sec-sub">Your best-converting creative right now · click the phone to play it</span>
+        <h2>The current top performers, live</h2>
+        <span class="sec-sub">Your two best-converting creatives right now · click a phone to play</span>
       </div>
       <div class="creative-demo">
-        <div class="phone">
-          <button class="phone-cover" id="playCover"><span class="pc-ic">▶</span>Tap to play<small>the live playable, right here</small></button>
-          <iframe id="playFrame" title="Atlas Earth top playable"></iframe>
-        </div>
+        <figure class="phone-fig">
+          <div class="phone">
+            <button class="phone-cover" data-src="https://unity-atlas.github.io/assets/top-creative.html"><span class="pc-ic">▶</span>Tap to play<small>select-a-plot playable</small></button>
+            <iframe title="Atlas Earth playable: select a plot"></iframe>
+          </div>
+          <figcaption>#1 · Select a plot</figcaption>
+        </figure>
+        <figure class="phone-fig">
+          <div class="phone">
+            <button class="phone-cover" data-src="https://unity-atlas.github.io/assets/top-creative-2.html"><span class="pc-ic">▶</span>Tap to play<small>memory-game playable</small></button>
+            <iframe title="Atlas Earth playable: memory game"></iframe>
+          </div>
+          <figcaption>#2 · Memory game</figcaption>
+        </figure>
         <div>
-          <h3 style="font-size:15px; margin-bottom:10px">Why this one wins</h3>
+          <h3 style="font-size:15px; margin-bottom:10px">Why these win</h3>
           <ul class="why">
             <li>It's a playable, and playables convert best on this account.</li>
-            <li>Real gameplay in the ad: pick a plot, start earning, straight to the store.</li>
+            <li>Two different hooks: real gameplay in one, a quick memory game in the other.</li>
             <li>This is the format we want a fresh batch of every few weeks.</li>
           </ul>
         </div>
@@ -1124,12 +1136,10 @@ renderGeoChart('itChart',
 
 <script>
 (() => {
-  const c = document.getElementById('playCover');
-  if (!c) return;
-  c.addEventListener('click', () => {
-    document.getElementById('playFrame').src = 'https://unity-atlas.github.io/assets/top-creative.html';
+  document.querySelectorAll('.phone-cover[data-src]').forEach(c => c.addEventListener('click', () => {
+    c.closest('.phone').querySelector('iframe').src = c.dataset.src;
     c.style.display = 'none';
-  });
+  }));
 })();
 </script>
 </body>
