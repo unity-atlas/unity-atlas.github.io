@@ -177,6 +177,19 @@
   .opp h3{margin:4px 0 6px}
   .opp p{font-size:13px; color:var(--ink-2)}
 
+
+  /* ---------- metric toggle + insight chips ---------- */
+  .seg{display:inline-flex; gap:4px; background:var(--plane); border:1px solid var(--ring); border-radius:99px; padding:3px; margin:10px 0 2px}
+  .seg button{border:none; background:transparent; font:600 11.5px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+    color:var(--ink-2); padding:7px 13px; border-radius:99px; cursor:pointer; transition:background .12s,color .12s}
+  .seg button:hover{color:var(--ink)}
+  .seg button[aria-pressed="true"]{background:var(--navy); color:#fff}
+  .chips{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px}
+  .chip{border:1px solid var(--ring); border-radius:12px; padding:12px 15px}
+  .chip b{display:block; font-size:19px; color:var(--ink)}
+  .chip span{font-size:11.5px; color:var(--ink-2); line-height:1.35; display:block; margin-top:3px}
+  @media (max-width:820px){ .chips{grid-template-columns:repeat(2,1fr)} }
+
   /* ---------- vector tab ---------- */
   .roadmap{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:16px}
   .rq h3{font-size:15px; padding-bottom:10px; border-bottom:2px solid var(--ink)}
@@ -302,10 +315,25 @@
     <section>
       <div class="sec-head">
         <h2>Campaign payback ranking</h2>
-        <span class="sec-sub">D7 total ROAS, matured cohorts, spend-weighted · full window · bar color = geo</span>
+        <span class="sec-sub" id="rankSub">D7 total ROAS, matured cohorts · bar color = geo · click a metric to switch</span>
+      </div>
+      <div class="seg" id="rankSeg" role="group" aria-label="Ranking metric">
+        <button data-m="d7" aria-pressed="true">Payback (D7 ROAS)</button>
+        <button data-m="iap" aria-pressed="false">IAP share</button>
+        <button data-m="ret" aria-pressed="false">Retention (D1)</button>
       </div>
       <div class="chart-wrap" id="rankChart"></div>
     </section>
+
+    <section>
+      <div class="sec-head">
+        <h2>Quality map: retention vs payback</h2>
+        <span class="sec-sub">Each bubble is a campaign, size = spend, dashed lines = account average · hover for details</span>
+      </div>
+      <div class="chart-wrap" id="qmapChart"></div>
+      <p style="font-size:13px; color:var(--ink-2); margin-top:10px">Retention and payback move together. Germany and iOS D28 sit top right, and tCPE (bottom left) is why we cut it.</p>
+    </section>
+
 
   </div>
 
@@ -380,7 +408,20 @@
       </table>
 
       <div class="warnbox"><b>Two budget proposals:</b>&ensp;<b>iOS D7</b>, cap is $8K but efficient spend is only $5–6K: set the budget to $6K and reallocate the $2K to the Payer campaign. Talk track: we are NOT hitting the cap, so there's no reason to lower ROAS targets, this is a reallocation, not a cut.&ensp;<b>Android D28</b>, the cleanest scale-up is budget-constrained: incremental budget from Liz, or shift $1,500/day from Android D7, which is this week's watch item anyway, so we'd be moving spend from the wobbling line to the working one.</div>
-    </section>
+    
+      <div class="sec-head" style="margin-top:6px">
+        <h2>D28 vs D7 optimizers: same start, different finish</h2>
+        <span class="sec-sub">US campaigns grouped by optimizer type · spend-weighted ROAS by cohort day</span>
+      </div>
+      <div class="chart-wrap" id="curveChart"></div>
+      <div class="chips">
+        <div class="chip"><b>3.6%</b><span>both types start day 1 at the same ROAS</span></div>
+        <div class="chip"><b>+11%</b><span>D28 is ahead by day 7 (5.8% vs 5.2%)</span></div>
+        <div class="chip"><b>60% IAP</b><span>share of D28 revenue (49% for D7)</span></div>
+        <div class="chip"><b>20.1%</b><span>D28 day-1 retention (16.8% for D7)</span></div>
+      </div>
+      <p style="font-size:13px; color:var(--ink-2); margin-top:12px">Both optimizer types buy users that look identical on day 1. The D28 users keep paying: better retention, more IAP, and the gap keeps widening past day 7. This is why the budget proposals lean D28 and Payer. If CPI comes up: same day-1 return, deeper curve, the extra cost pays for itself after day 7 and more by day 28.</p>
+</section>
   </div>
 
   <!-- ================= GERMANY ================= -->
@@ -925,5 +966,125 @@ renderGeoChart('itChart',
   [{w:"Jun 15",v:144},{w:"Jun 22",v:2630},{w:"Jun 29",v:5548},{w:"Jul 6",v:4002},{w:"Jul 13",v:4622},{w:"Jul 20",v:4401}],
   'var(--s3)', 'IT weekly spend (USD)');
 </script>
+
+<script>
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const DATA = [
+    {name:"Android DE · Hybrid ROAS",      geo:"de",  spendK:40,  d7:8.47, iap:77, ret:17.1, star:"★ best payback"},
+    {name:"iOS US · Hybrid ROAS D28",      geo:"us",  spendK:279, d7:6.17, iap:61, ret:24.3, star:"★ best US payback"},
+    {name:"Android US · Hybrid ROAS",      geo:"us",  spendK:148, d7:5.80, iap:51, ret:12.1, star:"★ most efficient"},
+    {name:"Android US · Hybrid ROAS D28",  geo:"us",  spendK:210, d7:5.34, iap:60, ret:16.4, star:""},
+    {name:"Android US · Discovery",        geo:"us",  spendK:92,  d7:5.30, iap:55, ret:11.9, star:""},
+    {name:"iOS US · Hybrid ROAS",          geo:"us",  spendK:389, d7:5.03, iap:48, ret:20.5, star:""},
+    {name:"iOS US · Discovery",            geo:"us",  spendK:104, d7:4.86, iap:51, ret:18.8, star:""},
+    {name:"Android IT · Hybrid ROAS",      geo:"it",  spendK:22,  d7:4.26, iap:73, ret:12.2, star:""},
+    {name:"Android US · tCPE (retired)",   geo:"off", spendK:21,  d7:2.19, iap:45, ret:10.2, star:""},
+  ];
+  const FILL = {us:"var(--s1)", de:"var(--s2)", it:"var(--s3)", off:"var(--baseline)"};
+  const tip = document.getElementById('tip');
+  function sTip(html, ev){ tip.innerHTML = html; tip.style.opacity = 1;
+    let x = ev.clientX + 14, y = ev.clientY + 14; const r = tip.getBoundingClientRect();
+    if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+    if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px'; }
+  function hTip(){ tip.style.opacity = 0; }
+
+  /* ---- ranking with metric toggle ---- */
+  const METRICS = {
+    d7:  {get:d=>d.d7,  max:9,   fmt:v=>v.toFixed(1)+"%", ticks:[0,3,6,9],    avg:5.4,  sub:"D7 total ROAS, matured cohorts"},
+    iap: {get:d=>d.iap, max:100, fmt:v=>Math.round(v)+"%", ticks:[0,25,50,75,100], avg:null, sub:"share of D7 revenue coming from IAP"},
+    ret: {get:d=>d.ret, max:30,  fmt:v=>v.toFixed(1)+"%", ticks:[0,10,20,30], avg:null, sub:"day-1 retention, install-weighted"},
+  };
+  function renderRank(mkey){
+    const M = METRICS[mkey];
+    const el = document.getElementById('rankChart'); el.innerHTML = '';
+    const rows = [...DATA].sort((a,b)=>M.get(b)-M.get(a));
+    const W=1008, ML=250, MR=150, rowH=34, MT=12, MB=26;
+    const H = MT + rows.length*rowH + MB, iw = W-ML-MR;
+    const svg = document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%');
+    let g='';
+    for (const t of M.ticks){ const x = ML + (t/M.max)*iw;
+      g += `<line x1="${x}" x2="${x}" y1="${MT}" y2="${H-MB}" stroke="${t===0?'var(--baseline)':'var(--grid)'}" stroke-width="1"/>`;
+      g += `<text x="${x}" y="${H-MB+16}" text-anchor="middle">${t}%</text>`; }
+    if (M.avg){ const ax = ML + (M.avg/M.max)*iw;
+      g += `<line x1="${ax}" x2="${ax}" y1="${MT}" y2="${H-MB}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3,4"/>`;
+      g += `<text x="${ax-6}" y="${H-MB+16}" text-anchor="end" font-style="italic">acct avg ${M.avg}%</text>`; }
+    rows.forEach((d,i)=>{ const y = MT + i*rowH + 7, bh = rowH-14, w = (M.get(d)/M.max)*iw;
+      g += `<text class="rname" x="${ML-10}" y="${y+bh/2+4}" text-anchor="end">${d.name}</text>`;
+      g += `<path class="rbar" data-i="${DATA.indexOf(d)}" d="M${ML},${y} h${Math.max(w-4,0)} a4,4 0 0 1 4,4 v${bh-8} a4,4 0 0 1 -4,4 h${-Math.max(w-4,0)} z" fill="${FILL[d.geo]}"/>`;
+      g += `<text class="rlabel" x="${ML+w+8}" y="${y+bh/2+4}">${M.fmt(M.get(d))}${mkey==='d7' && d.star ? '  ' + d.star : ''}</text>`; });
+    svg.innerHTML = g; el.appendChild(svg);
+    svg.addEventListener('mousemove', ev=>{ const t = ev.target.closest('.rbar'); if(!t){ hTip(); return; }
+      const d = DATA[+t.dataset.i];
+      sTip(`<div class="t-h">${d.name}</div>D7 ROAS ${d.d7.toFixed(2)}%<br>IAP share ${d.iap}% · D1 retention ${d.ret}%<br>Spend $${d.spendK}K`, ev); });
+    svg.addEventListener('mouseleave', hTip);
+    const sub = document.getElementById('rankSub'); if (sub) sub.textContent = M.sub + " · bar color = geo";
+  }
+  const seg = document.getElementById('rankSeg');
+  if (seg){ seg.addEventListener('click', ev => { const b = ev.target.closest('button[data-m]'); if(!b) return;
+      seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x===b ? 'true' : 'false'));
+      renderRank(b.dataset.m); });
+    renderRank('d7'); }
+
+  /* ---- quality map scatter ---- */
+  (function(){
+    const el = document.getElementById('qmapChart'); if(!el) return;
+    const W=1008, H=430, ML=56, MR=30, MT=18, MB=46;
+    const x0=8, x1=26, y0=0, y1=9;
+    const X = v => ML + (v-x0)/(x1-x0)*(W-ML-MR);
+    const Y = v => MT + (1-(v-y0)/(y1-y0))*(H-MT-MB);
+    const svg = document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%');
+    let g='';
+    for (const t of [0,3,6,9]) g += `<line x1="${ML}" x2="${W-MR}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'var(--baseline)':'var(--grid)'}" stroke-width="1"/><text x="${ML-8}" y="${Y(t)+4}" text-anchor="end">${t}%</text>`;
+    for (const t of [10,15,20,25]) g += `<text x="${X(t)}" y="${H-MB+18}" text-anchor="middle">${t}%</text>`;
+    g += `<text x="${(ML+W-MR)/2}" y="${H-8}" text-anchor="middle" class="panel-title">Day-1 retention</text>`;
+    g += `<text x="16" y="${(MT+H-MB)/2}" text-anchor="middle" class="panel-title" transform="rotate(-90 16 ${(MT+H-MB)/2})">D7 total ROAS</text>`;
+    g += `<line x1="${X(17)}" x2="${X(17)}" y1="${MT}" y2="${H-MB}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3,4"/>`;
+    g += `<line x1="${ML}" x2="${W-MR}" y1="${Y(5.4)}" y2="${Y(5.4)}" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3,4"/>`;
+    DATA.forEach((d,i)=>{ const r = 7 + Math.sqrt(d.spendK)*1.15;
+      g += `<circle class="qb" data-i="${i}" cx="${X(d.ret)}" cy="${Y(d.d7)}" r="${r}" fill="${FILL[d.geo]}" fill-opacity="0.75" stroke="var(--surface)" stroke-width="2"/>`; });
+    [["Android DE · Hybrid ROAS",1,-16],["iOS US · Hybrid ROAS D28",0,-26],["Android US · tCPE (retired)",0,26],["Android US · Hybrid ROAS",0,-22]].forEach(([nm,dx,dy])=>{
+      const d = DATA.find(x=>x.name===nm);
+      g += `<text class="dlabel" x="${X(d.ret)+dx}" y="${Y(d.d7)+dy}" text-anchor="middle">${nm.replace(' · Hybrid ROAS','').replace(' (retired)','')}</text>`; });
+    svg.innerHTML = g; el.appendChild(svg);
+    svg.addEventListener('mousemove', ev=>{ const t = ev.target.closest('.qb'); if(!t){ hTip(); return; }
+      const d = DATA[+t.dataset.i];
+      sTip(`<div class="t-h">${d.name}</div>D1 retention ${d.ret}% · D7 ROAS ${d.d7.toFixed(2)}%<br>Spend $${d.spendK}K · IAP share ${d.iap}%`, ev); });
+    svg.addEventListener('mouseleave', hTip);
+  })();
+
+  /* ---- D28 vs D7 payback curve ---- */
+  (function(){
+    const el = document.getElementById('curveChart'); if(!el) return;
+    const S = [
+      {name:"D28 optimizers", vals:[3.55,4.62,5.81], color:"var(--s1)"},
+      {name:"D7 optimizers",  vals:[3.56,4.31,5.24], color:"var(--muted)"},
+    ];
+    const labels = ["Day 1","Day 3","Day 7"];
+    const W=1008, H=300, ML=52, MR=170, MT=20, MB=36;
+    const X = i => ML + i/(labels.length-1)*(W-ML-MR);
+    const Y = v => MT + (1-v/7)*(H-MT-MB);
+    const svg = document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`); svg.setAttribute('width','100%');
+    let g='';
+    for (const t of [0,3.5,7]) g += `<line x1="${ML}" x2="${W-MR}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===0?'var(--baseline)':'var(--grid)'}" stroke-width="1"/><text x="${ML-8}" y="${Y(t)+4}" text-anchor="end">${t}%</text>`;
+    labels.forEach((l,i)=> g += `<text x="${X(i)}" y="${H-MB+18}" text-anchor="middle">${l}</text>`);
+    S.forEach((s,si)=>{
+      g += `<polyline points="${s.vals.map((v,i)=>X(i)+','+Y(v)).join(' ')}" fill="none" stroke="${s.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      s.vals.forEach((v,i)=>{ g += `<circle class="cp" data-s="${si}" data-i="${i}" cx="${X(i)}" cy="${Y(v)}" r="5" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`; });
+      g += `<text x="${X(labels.length-1)+14}" y="${Y(s.vals[2])+4}" font-weight="700" fill="${s.color === 'var(--muted)' ? 'var(--ink-2)' : 'var(--s1)'}" font-size="12.5">${s.name} · ${s.vals[2].toFixed(1)}%</text>`;
+    });
+    svg.innerHTML = g; el.appendChild(svg);
+    svg.addEventListener('mousemove', ev=>{ const t = ev.target.closest('.cp'); if(!t){ hTip(); return; }
+      const s = S[+t.dataset.s], i = +t.dataset.i;
+      sTip(`<div class="t-h">${s.name}</div>${labels[i]} ROAS ${s.vals[i].toFixed(2)}%`, ev); });
+    svg.addEventListener('mouseleave', hTip);
+  })();
+})();
+</script>
+
 </body>
 </html>
