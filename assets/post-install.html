@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas Earth · Campaign Efficiency (Post-Install)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --ios:#4c8dff; --and:#22a559; --bg:#0d1117; --card:#161b22; --card2:#1c2230;
+    --ink:#e6edf3; --muted:#8b949e; --line:#30363d; --good:#22a559; --bad:#f0883e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);padding:26px}
+  .wrap{max-width:1120px;margin:0 auto}
+  h1{font-size:23px;margin:0 0 3px}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 22px}
+  h2{font-size:15px;margin:26px 0 12px;font-weight:600;letter-spacing:.02em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .takeaways{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:6px}
+  .tk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .tk .big{font-size:26px;font-weight:700;margin-bottom:4px}
+  .tk .h{font-size:13.5px;font-weight:600;margin-bottom:3px}
+  .tk .d{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .kpigrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .kpigrid>div{padding:11px 16px;border-bottom:1px solid var(--line)}
+  .kpigrid .hd{background:var(--card2);font-weight:600;font-size:12.5px;color:var(--muted)}
+  .kpigrid .metric{background:var(--card);font-size:13.5px}
+  .kpigrid .val{background:var(--card);font-size:13.5px;text-align:right;font-variant-numeric:tabular-nums}
+  .ios{color:var(--ios);font-weight:600}
+  .and{color:var(--and);font-weight:600}
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .chartbox{position:relative;height:300px}
+  .controls{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .tab{background:transparent;color:var(--muted);border:1px solid var(--line);padding:7px 15px;
+    border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;transition:.15s}
+  .tab.active{background:var(--and);color:#fff;border-color:var(--and)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+  th{color:var(--muted);font-weight:600;cursor:pointer;user-select:none}
+  td:first-child,th:first-child{text-align:left}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+  .pill.ios{background:rgba(76,141,255,.15);color:var(--ios)}
+  .pill.and{background:rgba(34,165,89,.15);color:var(--and)}
+  .foot{color:var(--muted);font-size:11.5px;margin-top:18px;line-height:1.5}
+  .legend{display:flex;gap:18px;margin-top:10px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  @media(max-width:820px){.charts,.takeaways{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Atlas Earth · Campaign Efficiency (Post-Install)</h1>
+  <p class="sub">iOS vs Android and by campaign · Spend $1.29M · 80,756 installs · US / DE / IT</p>
+
+  <div class="takeaways">
+    <div class="tk"><div class="big" style="color:var(--ink)">≈ equal</div>
+      <div class="h">iOS and Android land at the same D7 ROAS</div>
+      <div class="d">5.67% vs 5.50% despite iOS costing 85% more per install. Quality offsets cost.</div></div>
+    <div class="tk"><div class="big" style="color:var(--good)">DE 8.1%</div>
+      <div class="h">Germany is the best campaign</div>
+      <div class="d">Highest D7 ROAS and payer rate (4.2%), only $40K spent. Scale candidate.</div></div>
+    <div class="tk"><div class="big" style="color:var(--bad)">tCPE 2.2%</div>
+      <div class="h">tCPE test is the underperformer</div>
+      <div class="d">Less than half the ROAS, near-zero level completion. Already paused, budget moved to ROAS.</div></div>
+  </div>
+
+  <h2>PLATFORM EFFICIENCY — iOS vs ANDROID</h2>
+  <div class="kpigrid" id="kpi"></div>
+
+  <h2>POST-INSTALL TREND BY PLATFORM (D1 → D3 → D7)</h2>
+  <div class="charts">
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Total ROAS</div>
+      <div class="chartbox"><canvas id="roasPlat"></canvas></div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Level Complete Rate</div>
+      <div class="chartbox"><canvas id="lcPlat"></canvas></div>
+    </div>
+  </div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--ios)"></i>iOS</span>
+    <span><i class="dot" style="background:var(--and)"></i>Android</span>
+  </div>
+
+  <h2>POST-INSTALL TREND BY CAMPAIGN (D1 → D3 → D7)</h2>
+  <div class="controls" id="metricTabs">
+    <button class="tab active" data-m="lc">Level Complete Rate</button>
+    <button class="tab" data-m="roas">Total ROAS</button>
+    <button class="tab" data-m="payer">Payer Rate</button>
+  </div>
+  <div class="card"><div class="chartbox" style="height:360px"><canvas id="campChart"></canvas></div></div>
+
+  <h2>CAMPAIGN DETAIL</h2>
+  <div class="card" style="padding:6px 12px">
+    <table id="tbl">
+      <thead><tr>
+        <th data-k="label">Campaign</th><th data-k="platform">OS</th><th data-k="spend">Spend</th>
+        <th data-k="installs">Installs</th><th data-k="cpi">CPI</th>
+        <th data-k="roas7">D7 ROAS</th><th data-k="lc7">D7 Lvl Complete</th><th data-k="payer7">D7 Payer</th>
+      </tr></thead><tbody></tbody>
+    </table>
+  </div>
+
+  <p class="foot">ROAS, retention, level-complete and payer rates are cumulative to day 1/3/7 post-install. Level Complete Rate = share of installs completing a level. Source: Atlas - Campaign Efficiency - Post install.xlsx</p>
+</div>
+
+<script>
+const D = {
+ "platform": {
+  "iOS": {
+   "spend": 763485.646703,
+   "installs": 35307,
+   "cpi": 21.6242004900727,
+   "cvr": 0.00395626028017543,
+   "ecpm": 85.5509654894251,
+   "roas": [
+    0.0359885818002886,
+    0.0445240254652077,
+    0.0567380966599574
+   ],
+   "ret": [
+    0.225762596652221,
+    0.146344917438468,
+    0.0986773161129521
+   ],
+   "lc": [
+    0.696519103860424,
+    0.708244823972583,
+    0.719319115189622
+   ],
+   "payer": [
+    0.0219503214659982,
+    0.024046223128558,
+    0.0265669697227178
+   ]
+  },
+  "Android": {
+   "spend": 531001.46867,
+   "installs": 45449,
+   "cpi": 11.6834576925784,
+   "cvr": 0.00679359788340016,
+   "ecpm": 79.3727134510966,
+   "roas": [
+    0.0343644747722971,
+    0.0436304776287393,
+    0.055047316283039
+   ],
+   "ret": [
+    0.132060111333582,
+    0.0832801601795419,
+    0.0510682303240995
+   ],
+   "lc": [
+    0.437721402011045,
+    0.443200070408589,
+    0.44749059385245
+   ],
+   "payer": [
+    0.0127395542256155,
+    0.0142357367598847,
+    0.0157539219784813
+   ]
+  }
+ },
+ "campaigns": [
+  {
+   "name": "20251119_unity_ua_iOS_US_HybridROAS",
+   "label": "US HybridROAS (11/25)",
+   "platform": "iOS",
+   "spend": 378320.816447,
+   "installs": 19531,
+   "cpi": 19.3702737415902,
+   "roas": [
+    0.0355293552280653,
+    0.0432918890214422,
+    0.0542934205234316
+   ],
+   "lc": [
+    0.701448978546925,
+    0.712457119451129,
+    0.722287645281859
+   ],
+   "payer": [
+    0.0203778608366187,
+    0.0224258870513542,
+    0.0244227126107214
+   ]
+  },
+  {
+   "name": "20260406_unity_ua_ios_US_HybridROAS_D28",
+   "label": "US HybridROAS D28 (04/26)",
+   "platform": "iOS",
+   "spend": 280185.666889,
+   "installs": 10518,
+   "cpi": 26.638682913957,
+   "roas": [
+    0.0373316957542436,
+    0.047038384062741,
+    0.0618368808489546
+   ],
+   "lc": [
+    0.685966913861951,
+    0.699467579387716,
+    0.714679596881536
+   ],
+   "payer": [
+    0.0242441528807758,
+    0.0265259555048488,
+    0.0304240349876402
+   ]
+  },
+  {
+   "name": "20260406_unity_ua_android_US_HybridROAS_D28",
+   "label": "US HybridROAS D28 (04/26)",
+   "platform": "Android",
+   "spend": 210381.811864,
+   "installs": 12522,
+   "cpi": 16.8009752327104,
+   "roas": [
+    0.0316346345296346,
+    0.0413231193275393,
+    0.052144616156703
+   ],
+   "lc": [
+    0.448410796997284,
+    0.454719693339722,
+    0.459351541287334
+   ],
+   "payer": [
+    0.01613160836927,
+    0.0181280945535856,
+    0.019964861843156
+   ]
+  },
+  {
+   "name": "20260203_unity_ua_android_US_HybridROAS",
+   "label": "US HybridROAS (02/26)",
+   "platform": "Android",
+   "spend": 144760.356355,
+   "installs": 15596,
+   "cpi": 9.28188999454988,
+   "roas": [
+    0.0388569144179625,
+    0.0467165327806711,
+    0.0581282226562393
+   ],
+   "lc": [
+    0.481213131572197,
+    0.487240318030264,
+    0.491343934342139
+   ],
+   "payer": [
+    0.0103231597845601,
+    0.0109643498332905,
+    0.0123108489356245
+   ]
+  },
+  {
+   "name": "20260612_unity_ua_ios_US_HybridROAS-Discovery-BLTopSupply",
+   "label": "US HybridROAS Disc (06/26)",
+   "platform": "iOS",
+   "spend": 104979.163367,
+   "installs": 5258,
+   "cpi": 19.9656073349182,
+   "roas": [
+    0.0340588054459952,
+    0.0422536284890452,
+    0.0519396741898022
+   ],
+   "lc": [
+    0.699315329022442,
+    0.710155952833777,
+    0.717573221757322
+   ],
+   "payer": [
+    0.0232027386839102,
+    0.0251046025104602,
+    0.0268162799543552
+   ]
+  },
+  {
+   "name": "20260612_unity_ua_android_US_HybridROAS-Discovery-BLTopSupply",
+   "label": "US HybridROAS Disc (06/26)",
+   "platform": "Android",
+   "spend": 91973.942264,
+   "installs": 8379,
+   "cpi": 10.9767206425587,
+   "roas": [
+    0.0354779369208055,
+    0.0446515393263452,
+    0.0556931294985379
+   ],
+   "lc": [
+    0.48454469507101,
+    0.48860245852727,
+    0.493495643871583
+   ],
+   "payer": [
+    0.0116959064327485,
+    0.0131280582408401,
+    0.0139634801288936
+   ]
+  },
+  {
+   "name": "20260612_unity_ua_android_DE_HybridROAS",
+   "label": "DE HybridROAS (06/26)",
+   "platform": "Android",
+   "spend": 40433.099907,
+   "installs": 2611,
+   "cpi": 15.4856759505936,
+   "roas": [
+    0.0446850959401416,
+    0.0626783454195348,
+    0.0812080946299767
+   ],
+   "lc": [
+    0.511298353121409,
+    0.51704327843738,
+    0.520873228648027
+   ],
+   "payer": [
+    0.0317885867483722,
+    0.0379165070854078,
+    0.0417464572960551
+   ]
+  },
+  {
+   "name": "20260612_unity_ua_android_IT_HybridROAS",
+   "label": "IT HybridROAS (06/26)",
+   "platform": "Android",
+   "spend": 21985.098599,
+   "installs": 2855,
+   "cpi": 7.70055992959719,
+   "roas": [
+    0.0252546016592626,
+    0.0314847234848513,
+    0.0440959491145936
+   ],
+   "lc": [
+    0.47215411558669,
+    0.475656742556917,
+    0.47985989492119
+   ],
+   "payer": [
+    0.00700525394045534,
+    0.00840630472854641,
+    0.0101576182136602
+   ]
+  },
+  {
+   "name": "20260501_unity_ua_android_US_tCPE",
+   "label": "US tCPE (05/26)",
+   "platform": "Android",
+   "spend": 21467.159681,
+   "installs": 3486,
+   "cpi": 6.15810662105565,
+   "roas": [
+    0.0159437248890869,
+    0.0176204213191161,
+    0.02189387315733
+   ],
+   "lc": [
+    0.00889271371199082,
+    0.0137693631669535,
+    0.0166379804934021
+   ],
+   "payer": [
+    0.00430292598967297,
+    0.00458978772231784,
+    0.00545037292025243
+   ]
+  }
+ ]
+};
+const days=["D1","D3","D7"];
+const IOS="#4c8dff", AND="#22a559";
+const CAMP_COLORS=["#4c8dff","#22a559","#f0883e","#d2a8ff","#e5534b","#f2cc60","#39c5cf","#db61a2","#8b949e"];
+
+function pctArr(a){return a.map(v=>+(v*100).toFixed(2));}
+
+// ---- KPI grid ----
+const io=D.platform.iOS, an=D.platform.Android;
+const kpiRows=[
+  ["Spend", "$"+io.spend.toLocaleString(undefined,{maximumFractionDigits:0}), "$"+an.spend.toLocaleString(undefined,{maximumFractionDigits:0})],
+  ["Installs", io.installs.toLocaleString(), an.installs.toLocaleString()],
+  ["Cost per install", "$"+io.cpi.toFixed(2), "$"+an.cpi.toFixed(2)],
+  ["Install conversion rate", (io.cvr*100).toFixed(2)+"%", (an.cvr*100).toFixed(2)+"%"],
+  ["eCPM", "$"+io.ecpm.toFixed(2), "$"+an.ecpm.toFixed(2)],
+  ["D7 Total ROAS", (io.roas[2]*100).toFixed(2)+"%", (an.roas[2]*100).toFixed(2)+"%"],
+  ["D7 Retention", (io.ret[2]*100).toFixed(2)+"%", (an.ret[2]*100).toFixed(2)+"%"],
+  ["D7 Level Complete Rate", (io.lc[2]*100).toFixed(1)+"%", (an.lc[2]*100).toFixed(1)+"%"],
+  ["D7 Payer Rate", (io.payer[2]*100).toFixed(2)+"%", (an.payer[2]*100).toFixed(2)+"%"],
+];
+let html='<div class="hd">Metric</div><div class="hd" style="text-align:right"><span class="ios">iOS</span></div><div class="hd" style="text-align:right"><span class="and">Android</span></div>';
+kpiRows.forEach(r=>{html+=`<div class="metric">${r[0]}</div><div class="val">${r[1]}</div><div class="val">${r[2]}</div>`;});
+document.getElementById('kpi').innerHTML=html;
+
+// ---- platform trend charts ----
+function lineOpts(fmt,yTitle){return{
+  responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+": "+c.parsed.y.toFixed(2)+"%"}}},
+  scales:{x:{grid:{display:false},ticks:{color:'#e6edf3'}},
+    y:{grid:{color:'#30363d'},ticks:{color:'#8b949e',callback:v=>v+'%'},title:{display:true,text:yTitle,color:'#8b949e'}}}
+};}
+new Chart(document.getElementById('roasPlat'),{type:'line',
+  data:{labels:days,datasets:[
+    {label:'iOS',data:pctArr(io.roas),borderColor:IOS,backgroundColor:IOS,tension:.3,borderWidth:3,pointRadius:4},
+    {label:'Android',data:pctArr(an.roas),borderColor:AND,backgroundColor:AND,tension:.3,borderWidth:3,pointRadius:4}]},
+  options:lineOpts(null,'% of spend')});
+new Chart(document.getElementById('lcPlat'),{type:'line',
+  data:{labels:days,datasets:[
+    {label:'iOS',data:pctArr(io.lc),borderColor:IOS,backgroundColor:IOS,tension:.3,borderWidth:3,pointRadius:4},
+    {label:'Android',data:pctArr(an.lc),borderColor:AND,backgroundColor:AND,tension:.3,borderWidth:3,pointRadius:4}]},
+  options:lineOpts(null,'% of installs')});
+
+// ---- campaign trend chart ----
+const active=D.campaigns.filter(c=>c.spend>0);
+let campChart;
+function renderCamp(metric){
+  const yTitle = metric==='roas'?'% of spend':(metric==='lc'?'% of installs':'% of installs');
+  const ds=active.map((c,i)=>({
+    label:`${c.label} · ${c.platform}`,
+    data:pctArr(c[metric]),
+    borderColor:CAMP_COLORS[i%CAMP_COLORS.length],
+    backgroundColor:CAMP_COLORS[i%CAMP_COLORS.length],
+    borderDash:c.platform==='iOS'?[]:[6,3],
+    tension:.3,borderWidth:2.5,pointRadius:3
+  }));
+  const cfg={type:'line',data:{labels:days,datasets:ds},options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'right',labels:{color:'#e6edf3',font:{size:11},boxWidth:14}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+": "+c.parsed.y.toFixed(2)+"%"}}},
+    scales:{x:{grid:{display:false},ticks:{color:'#e6edf3'}},
+      y:{grid:{color:'#30363d'},ticks:{color:'#8b949e',callback:v=>v+'%'},title:{display:true,text:yTitle,color:'#8b949e'}}}
+  }};
+  if(campChart)campChart.destroy();
+  campChart=new Chart(document.getElementById('campChart'),cfg);
+}
+renderCamp('lc');
+document.querySelectorAll('#metricTabs .tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#metricTabs .tab').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');renderCamp(b.dataset.m);
+}));
+
+// ---- table ----
+const tblData=active.map(c=>({label:c.label,platform:c.platform,spend:c.spend,installs:c.installs,cpi:c.cpi,
+  roas7:c.roas[2]*100,lc7:c.lc[2]*100,payer7:c.payer[2]*100}));
+let sortK='spend',sortDir=-1;
+function drawTable(){
+  tblData.sort((a,b)=>{const x=a[sortK],y=b[sortK];return (typeof x==='string'?x.localeCompare(y):x-y)*sortDir;});
+  const tb=document.querySelector('#tbl tbody');tb.innerHTML='';
+  tblData.forEach(r=>{
+    const cls=r.platform==='iOS'?'ios':'and';
+    tb.innerHTML+=`<tr><td>${r.label}</td><td><span class="pill ${cls}">${r.platform}</span></td>
+      <td>$${r.spend.toLocaleString(undefined,{maximumFractionDigits:0})}</td>
+      <td>${r.installs.toLocaleString()}</td><td>$${r.cpi.toFixed(2)}</td>
+      <td>${r.roas7.toFixed(2)}%</td><td>${r.lc7.toFixed(1)}%</td><td>${r.payer7.toFixed(2)}%</td></tr>`;
+  });
+}
+document.querySelectorAll('#tbl th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k;if(k===sortK)sortDir*=-1;else{sortK=k;sortDir=(k==='label'||k==='platform')?1:-1;}drawTable();
+}));
+drawTable();
+</script>
+</body>
+</html>
