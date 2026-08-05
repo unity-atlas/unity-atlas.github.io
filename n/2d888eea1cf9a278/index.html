@@ -286,10 +286,10 @@
         <button role="tab" aria-selected="false" data-tab="us"        data-name="United States"><span class="dot"></span>United States<span class="idx">02</span></button>
         <button role="tab" aria-selected="false" data-tab="de"        data-name="Germany"><span class="dot"></span>Germany<span class="idx">03</span></button>
         <button role="tab" aria-selected="false" data-tab="it"        data-name="Italy"><span class="dot"></span>Italy<span class="idx">04</span></button>
-        <button role="tab" aria-selected="false" data-tab="growth"    data-name="Growth &amp; Opportunities"><span class="dot"></span>Growth &amp; Opportunities<span class="idx">05</span></button>
-        <button role="tab" aria-selected="false" data-tab="vector"    data-name="Vector &amp; Data"><span class="dot"></span>Vector &amp; Data<span class="idx">06</span></button>
-        <button role="tab" aria-selected="false" data-tab="creatives" data-name="Creatives"><span class="dot"></span>Creatives<span class="idx">07</span></button>
-        <button role="tab" aria-selected="false" data-tab="postinstall" data-name="Post-Install"><span class="dot"></span>Post-Install<span class="idx">08</span></button>
+        <button role="tab" aria-selected="false" data-tab="postinstall" data-name="Post-Install"><span class="dot"></span>Post-Install<span class="idx">05</span></button>
+        <button role="tab" aria-selected="false" data-tab="growth"    data-name="Growth &amp; Opportunities"><span class="dot"></span>Growth &amp; Opportunities<span class="idx">06</span></button>
+        <button role="tab" aria-selected="false" data-tab="vector"    data-name="Vector &amp; Data"><span class="dot"></span>Vector &amp; Data<span class="idx">07</span></button>
+        <button role="tab" aria-selected="false" data-tab="creatives" data-name="Creatives"><span class="dot"></span>Creatives<span class="idx">08</span></button>
       </nav>
       <div class="side-hint">Click a section, use the <kbd>←</kbd> <kbd>→</kbd> keys, or the Next buttons at the end of each section.</div>
     </div>
@@ -506,6 +506,28 @@
         </div>
       </div>
       <div class="warnbox"><b>Status &amp; next:</b> goal change already made, ROAS target now aggressive; monitoring at current scale before any budget move. Next: localized IT creatives (biggest lever given the +97% IPM trend), then join the iOS test alongside Germany.</div>
+    </section>
+  </div>
+
+<!-- ================= POST-INSTALL ================= -->
+  <div class="panel" id="tab-postinstall">
+    <section>
+      <div class="sec-head">
+        <h2>Post-install: what players actually do</h2>
+        <span class="sec-sub">One layer deeper than ROAS: level completion, payer rate, and how value builds from day 1 to day 7</span>
+      </div>
+      <div class="chips">
+        <div class="chip"><b>5.7% vs 5.5%</b><span>iOS and Android land at the same D7 ROAS, quality offsets cost</span></div>
+        <div class="chip"><b>72% vs 45%</b><span>iOS players complete levels far more than Android</span></div>
+        <div class="chip"><b>2.7% vs 1.6%</b><span>iOS D7 payer rate is also well ahead</span></div>
+        <div class="chip"><b>4.2%</b><span>Germany has the highest payer rate anywhere on the account</span></div>
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin-top:12px">Talk track: this answers the iOS cost question with engagement data. iOS costs more per install but those players finish levels and pay, so both platforms land at the same D7 ROAS. Germany tops payer rate too, one more point for the DE expansion.</p>
+      <div style="border-radius:16px; overflow:hidden; border:1px solid var(--ring); background:#ffffff; margin-top:16px">
+        <iframe src="https://unity-atlas.github.io/assets/post-install.html" title="Atlas Earth post-install dashboard"
+          style="width:100%; height:2150px; border:none; display:block" loading="lazy"></iframe>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-top:10px">Interactive: switch metrics on the campaign chart and click table headers to sort. Numbers come from the post-install export, so totals differ slightly from the spend export used above.</p>
     </section>
   </div>
 
@@ -828,28 +850,6 @@
     </section>
   </div>
 
-
-  <!-- ================= POST-INSTALL ================= -->
-  <div class="panel" id="tab-postinstall">
-    <section>
-      <div class="sec-head">
-        <h2>Post-install: what players actually do</h2>
-        <span class="sec-sub">One layer deeper than ROAS: level completion, payer rate, and how value builds from day 1 to day 7</span>
-      </div>
-      <div class="chips">
-        <div class="chip"><b>5.7% vs 5.5%</b><span>iOS and Android land at the same D7 ROAS, quality offsets cost</span></div>
-        <div class="chip"><b>72% vs 45%</b><span>iOS players complete levels far more than Android</span></div>
-        <div class="chip"><b>2.7% vs 1.6%</b><span>iOS D7 payer rate is also well ahead</span></div>
-        <div class="chip"><b>4.2%</b><span>Germany has the highest payer rate anywhere on the account</span></div>
-      </div>
-      <p style="font-size:12.5px; color:var(--muted); margin-top:12px">Talk track: this answers the iOS cost question with engagement data. iOS costs more per install but those players finish levels and pay, so both platforms land at the same D7 ROAS. Germany tops payer rate too, one more point for the DE expansion.</p>
-      <div style="border-radius:16px; overflow:hidden; border:1px solid var(--ring); background:#0d1117; margin-top:16px">
-        <iframe src="https://unity-atlas.github.io/assets/post-install.html" title="Atlas Earth post-install dashboard"
-          style="width:100%; height:2150px; border:none; display:block" loading="lazy"></iframe>
-      </div>
-      <p style="font-size:12px; color:var(--muted); margin-top:10px">Interactive: switch metrics on the campaign chart and click table headers to sort. Numbers come from the post-install export, so totals differ slightly from the spend export used above.</p>
-    </section>
-  </div>
 
   <footer>
     <b>Data notes:</b> Unity dashboard export, Apr 27 – Jul 27, 2026. ROAS figures are spend-weighted over matured cohorts only, D7 through Jul 19, D1 through Jul 24; recent days showing 0% ROAS in raw exports are cohort immaturity, not a performance drop. Retention is install-weighted; IPM = installs per 1,000 impressions. Network-side ROAS reads 30–40% below Atlas Earth's internal attribution (not all down-funnel data points are shared with networks), levels are conservative, trends are accurate.
