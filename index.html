@@ -322,6 +322,7 @@
       <div class="kpi"><div class="lbl">D1 Retention</div><div class="val">17.0%</div><div class="note">iOS 21% · Android 13%</div></div>
     </div>
     <div class="mnote">ⓘ <b>Measurement note:</b> Unity-side ROAS reads <b>30–40% below</b> your internal reporting, reports are being cross-checked; trends and comparisons stay accurate.</div>
+    <div class="mnote" style="background:var(--good-bg); border-color:rgba(0,99,0,.25)">🗓 <b>This week on the account:</b> Android scaled down as expected after the budget and goal changes on your side. iOS is hitting its caps and scaled up over the weekend (about $27K/day), ROAS is flat to improving after last week's optimization pass, and the new creative batch is live and already getting traffic. If iOS keeps capping, the next conversation is more iOS budget.</div>
 
     <section>
       <div class="sec-head">
@@ -356,10 +357,10 @@
     <section>
       <div class="sec-head">
         <h2>Where the spend goes: top sources</h2>
-        <span class="sec-sub">Top 10 source apps by spend, last 30 days · hover for details</span>
+        <span class="sec-sub">Top 10 sources by spend, last 30 days · biggest spender named, full list available on request</span>
       </div>
       <div class="chart-wrap" id="srcChart"></div>
-      <p style="font-size:13px; color:var(--ink-2); margin-top:10px">Healthy spread: the top 10 sources are only 17% of spend, so no single app carries the account.</p>
+      <p style="font-size:13px; color:var(--ink-2); margin-top:10px">Healthy spread: the top 10 sources are only 17% of spend, so no single app carries the account. We manage the list actively: sources get blocked proactively on low ROAS, and retention is joining that pass next.</p>
     </section>
 
 
@@ -522,6 +523,12 @@
         <div class="chip"><b>72% vs 45%</b><span>iOS players complete levels far more than Android</span></div>
         <div class="chip"><b>2.7% vs 1.6%</b><span>iOS D7 payer rate is also well ahead</span></div>
         <div class="chip"><b>4.2%</b><span>Germany has the highest payer rate anywhere on the account</span></div>
+      </div>
+      <div class="chips" style="margin-top:12px">
+        <div class="chip"><b>45.7K</b><span>players reached the deep funnel in 7 days (level complete = 3rd and 5th parcel purchase)</span></div>
+        <div class="chip"><b>1,654</b><span>became payers within 7 days (938 iOS, 716 Android)</span></div>
+        <div class="chip"><b>$371</b><span>cost per payer in Germany, roughly half the account average ($814 iOS, $742 Android)</span></div>
+        <div class="chip"><b>$30 / $26</b><span>cost per level completer, iOS / Android (Italy cheapest at $16)</span></div>
       </div>
       <div style="border-radius:16px; overflow:hidden; border:1px solid var(--ring); background:#ffffff; margin-top:16px">
         <iframe src="https://unity-atlas.github.io/assets/post-install.html" title="Atlas Earth post-install dashboard"
@@ -1221,11 +1228,11 @@ renderGeoChart('itChart',
   const el = document.getElementById('srcChart'); if (!el) return;
   const NS = 'http://www.w3.org/2000/svg';
   const S = [
-    {n:"JustPlay", s:3912, i:376, r:2.06}, {n:"Pogo", s:2027, i:163, r:1.07},
-    {n:"Meowdoku", s:1936, i:86, r:2.53}, {n:"CryptoDiggers", s:1679, i:148, r:4.32},
-    {n:"Pixel Flow", s:1132, i:49, r:1.11}, {n:"Freereels", s:1084, i:154, r:3.16},
-    {n:"Triumph Kit Unity Package", s:1007, i:36, r:1.21}, {n:"Eureka: Earn money for surveys", s:964, i:90, r:1.48},
-    {n:"DramaWave", s:925, i:37, r:1.15}, {n:"GeoSmile", s:839, i:24, r:1.00},
+    {n:"JustPlay (top source)", s:3912, i:376, r:2.06}, {n:"Source 02 · casual puzzle", s:2027, i:163, r:1.07},
+    {n:"Source 03 · casual puzzle", s:1936, i:86, r:2.53}, {n:"Source 04 · idle sim", s:1679, i:148, r:4.32},
+    {n:"Source 05 · casual", s:1132, i:49, r:1.11}, {n:"Source 06 · rewarded", s:1084, i:154, r:3.16},
+    {n:"Source 07 · utility", s:1007, i:36, r:1.21}, {n:"Source 08 · rewarded", s:964, i:90, r:1.48},
+    {n:"Source 09 · short drama", s:925, i:37, r:1.15}, {n:"Source 10 · move to earn", s:839, i:24, r:1.00},
   ];
   const tip = document.getElementById('tip');
   const W=1008, ML=250, MR=90, rowH=32, MT=10, MB=26, iw=W-ML-MR, maxV=4000;
