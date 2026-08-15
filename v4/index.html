@@ -387,6 +387,11 @@ img.pv-av{object-fit:cover; object-position:center 22%; background:none}
   .act-b .nm .plat{font-weight:600; color:var(--muted); font-size:11px}
   .act-b .rz{font-size:12px; color:var(--ink-2); margin-top:2px; line-height:1.4}
   @media (max-width:820px){ .act2{grid-template-columns:1fr} }
+
+  .vc-play{position:absolute; inset:0; margin:auto; z-index:3; width:54px; height:54px; border-radius:50%; border:none;
+    background:rgba(124,58,237,.92); color:#fff; font-size:19px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.4); transition:transform .12s, background .12s}
+  .vc-play:hover{transform:scale(1.08); background:rgba(124,58,237,1)}
 </style>
 </head>
 <body>
@@ -1688,5 +1693,20 @@ renderGeoChart('itChart',
 
 </script>
 
+<script>
+(function(){
+  document.querySelectorAll('.vc-media').forEach(function(m){
+    var v = m.querySelector('video'); if(!v) return;
+    v.setAttribute('preload','metadata');
+    // paint a real first frame instead of a black box
+    v.addEventListener('loadedmetadata', function(){ try{ if(v.currentTime<0.05) v.currentTime = 0.08; }catch(e){} }, {once:true});
+    var btn = document.createElement('button'); btn.className='vc-play'; btn.setAttribute('aria-label','Play'); btn.textContent='\u25B6';
+    m.appendChild(btn);
+    function hide(){ btn.style.display='none'; } function show(){ if(!v.ended) btn.style.display='flex'; }
+    btn.addEventListener('click', function(){ v.play(); hide(); });
+    v.addEventListener('play', hide); v.addEventListener('pause', show); v.addEventListener('ended', show);
+  });
+})();
+</script>
 </body>
 </html>
