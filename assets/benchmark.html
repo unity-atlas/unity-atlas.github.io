@@ -3,170 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas Earth vs the Market · Spend & Creative Performance</title>
+<meta name="robots" content="noindex,nofollow">
+<title>Atlas Earth vs the auction field</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root{
-    --navy:#4C1D95; --atlas:#7c3aed; --comp:#8a8781; --ink:#0b0b0b; --muted:#52514e;
-    --line:#e7e6e0; --card:#FFFFFF; --tint:#f3e8ff; --bg:#f7f7f5;
+    --atlas:#7c3aed; --c1:#eb6834; --field:#c3c2b7;
+    --ink:#0b0b0b; --muted:#52514e; --line:#e7e6e0; --card:#ffffff; --tint:#f3e8ff; --bg:#f7f7f5;
+    --navy:#4c1d95;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg);color:var(--ink);}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 26px 40px}
-  .hero{background:linear-gradient(118deg,#5b21b6 0%,#7c3aed 52%,#c026d3 100%);color:#fff;padding:46px 34px;border-radius:0 0 16px 16px;margin-bottom:8px}
-  .hero h1{font-size:34px;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
-  .hero .s1{font-size:17px;color:#ecdcfd;margin:0 0 14px}
-  .hero .s2{font-size:13px;color:#d9c8f6;margin:0}
-  section{margin-top:30px}
+    background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 26px 40px}
   h2{font-size:22px;color:var(--navy);margin:0 0 3px;font-weight:800}
-  .subtitle{font-size:14px;color:var(--muted);margin:0 0 18px}
-  .legend{display:flex;gap:20px;margin:2px 0 16px;font-size:13px;color:var(--ink);flex-wrap:wrap}
+  .subtitle{font-size:14px;color:var(--muted);margin:0 0 16px}
+  .legend{display:flex;gap:20px;margin:2px 0 18px;font-size:13px;color:var(--ink);flex-wrap:wrap}
   .legend span{display:inline-flex;align-items:center;gap:8px;font-weight:600}
   .sw{width:14px;height:14px;border-radius:3px;display:inline-block}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px 10px;
     box-shadow:0 1px 3px rgba(20,30,60,.05)}
   .card h3{font-size:14px;margin:0 0 6px;color:var(--ink);font-weight:700}
   .chartbox{position:relative;height:230px}
-  .chartbox.tall{height:300px}
-  .callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .callouts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
   .co{background:var(--tint);border-radius:12px;padding:16px 18px}
   .co .h{display:flex;align-items:center;gap:9px;font-weight:700;font-size:14px;margin-bottom:7px}
   .co .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
   .co p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
-  .foot{color:var(--muted);font-size:11.5px;margin-top:16px;font-style:italic}
-  @media(max-width:860px){.grid3,.grid2,.callouts{grid-template-columns:1fr}}
+  .co b{color:var(--ink)}
+  .foot{color:var(--muted);font-size:11.5px;margin-top:16px;font-style:italic;line-height:1.5}
+  @media(max-width:860px){.grid3,.callouts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="hero">
-  <div class="wrap" style="padding:0 8px">
-    <h1>Atlas Earth vs the Market</h1>
-    <p class="s1">Spend trends and creative performance</p>
-    <p class="s2">US market focus  ·  iOS &amp; Android  ·  Creative pack analysis  ·  Prepared Aug 2026</p>
-  </div>
-</div>
-
 <div class="wrap">
+  <h2>Atlas Earth vs the auction field, US</h2>
+  <p class="subtitle">How you stack up against the advertisers you actually bid against. Competitor 1 is the single title you meet most often in the auction; Competitors 2 to 4 are blended into "the field".</p>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--atlas)"></i>Atlas Earth</span>
+    <span><i class="sw" style="background:var(--c1)"></i>Competitor 1</span>
+    <span><i class="sw" style="background:var(--field)"></i>Competitors 2-4 (blended)</span>
+  </div>
 
-  <!-- ===== SECTION 1: SPEND ===== -->
-  <section>
-    <h2>US spend: Atlas Earth vs the market</h2>
-    <p class="subtitle">Atlas Earth buys premium US inventory at a higher cost; the market converts more efficiently post-click.</p>
-    <div class="legend">
-      <span><i class="sw" style="background:var(--atlas)"></i>Atlas Earth</span>
-      <span><i class="sw" style="background:var(--comp)"></i>Market</span>
-    </div>
-    <div class="grid3">
-      <div class="card"><h3>Average eCPM Spend</h3><div class="chartbox"><canvas id="ecpm"></canvas></div></div>
-      <div class="card"><h3>Cost per Install</h3><div class="chartbox"><canvas id="cpi"></canvas></div></div>
-      <div class="card"><h3>IPM (installs / 1k impr.)</h3><div class="chartbox"><canvas id="ipm"></canvas></div></div>
-    </div>
-    <div class="grid2" style="margin-top:16px">
-      <div class="card"><h3>Conversion Rate</h3><div class="chartbox"><canvas id="cvr"></canvas></div></div>
-      <div class="card"><h3>Install Rate</h3><div class="chartbox"><canvas id="ir"></canvas></div></div>
-    </div>
-    <div class="callouts">
-      <div class="co"><div class="h"><i class="dot" style="background:var(--atlas)"></i>Media cost</div>
-        <p>Atlas Earth eCPM is $92 to 94 vs about $40 for the market (2.3× higher). We bid into premium placements.</p></div>
-      <div class="co"><div class="h"><i class="dot" style="background:var(--comp)"></i>Efficiency</div>
-        <p>Atlas Earth CPI runs higher ($26 vs $9 on iOS, $13 vs $5 on Android) with lower IPM and install rate.</p></div>
-      <div class="co"><div class="h"><i class="dot" style="background:var(--navy)"></i>Conversion</div>
-        <p>The market converts better post-click, with higher conversion and install rates on both platforms.</p></div>
-    </div>
-  </section>
+  <div class="grid3">
+    <div class="card"><h3>Average eCPM</h3><div class="chartbox"><canvas id="ecpm"></canvas></div></div>
+    <div class="card"><h3>Cost per Install</h3><div class="chartbox"><canvas id="cpi"></canvas></div></div>
+    <div class="card"><h3>IPM (installs / 1k impr.)</h3><div class="chartbox"><canvas id="ipm"></canvas></div></div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="card"><h3>Conversion Rate</h3><div class="chartbox"><canvas id="cvr"></canvas></div></div>
+    <div class="card"><h3>Install Rate</h3><div class="chartbox"><canvas id="ir"></canvas></div></div>
+    <div class="card"><h3>D7 Retention</h3><div class="chartbox"><canvas id="ret"></canvas></div></div>
+  </div>
 
-  <!-- ===== SECTION 2: CREATIVE ===== -->
-  <section>
-    <h2>Creative mix: how Atlas Earth compares</h2>
-    <p class="subtitle">Atlas Earth concentrates spend in video plus playable; the market leans heavily on plain iOS video.</p>
-    <div class="legend">
-      <span><i class="sw" style="background:var(--atlas)"></i>Atlas Earth</span>
-      <span><i class="sw" style="background:var(--comp)"></i>Market</span>
-    </div>
-    <div class="grid3">
-      <div class="card"><h3>Share of Spend</h3><div class="chartbox tall"><canvas id="sos"></canvas></div></div>
-      <div class="card"><h3>IPM (installs / 1k impr.)</h3><div class="chartbox tall"><canvas id="cipm"></canvas></div></div>
-      <div class="card"><h3>Cost per Install</h3><div class="chartbox tall"><canvas id="ccpi"></canvas></div></div>
-    </div>
-    <div class="callouts">
-      <div class="co"><div class="h"><i class="dot" style="background:var(--atlas)"></i>Spend mix</div>
-        <p>Atlas Earth puts 60% (iOS) and 37% (Android) into video plus playable; the market puts 76% into plain iOS video and statics.</p></div>
-      <div class="co"><div class="h"><i class="dot" style="background:var(--comp)"></i>Creative IPM</div>
-        <p>Market video plus playable shows far higher IPM (43 iOS, 105 Android) but on under 1% of spend, so directional only.</p></div>
-      <div class="co"><div class="h"><i class="dot" style="background:var(--navy)"></i>Cost per install</div>
-        <p>Atlas Earth video plus playable CPI is higher ($26 iOS, $11 Android); thin cells show near-zero CPI on low volume.</p></div>
-    </div>
-    <p class="foot">Low-spend creative cells (under 1% of spend) are directional only, anchor conclusions on the high-spend segments.</p>
-  </section>
+  <div class="callouts">
+    <div class="co"><div class="h"><i class="dot" style="background:var(--atlas)"></i>You beat your top rival on cost</div>
+      <p>Against <b>Competitor 1</b>, your closest auction rival, Atlas Earth buys cheaper on both platforms: <b>$22 vs $28</b> on iOS and <b>$12 vs $36</b> on Android, at higher IPM. You are winning the head-to-head.</p></div>
+    <div class="co"><div class="h"><i class="dot" style="background:var(--field)"></i>The field looks cheap for a reason</div>
+      <p>Competitors 2 to 4 show very low CPI and high IPM, but that is cheaper, lower-intent inventory on different ROAS models. Not apples to apples, so read it as context, not a target.</p></div>
+    <div class="co"><div class="h"><i class="dot" style="background:var(--c1)"></i>Retention is the gap to close</div>
+      <p>Competitor 1 holds <b>12.1% D7</b> on both platforms while Atlas Earth sits at 9.4% iOS and 5.1% Android. This is exactly what the retention and Payer work is aimed at.</p></div>
+  </div>
 
-  <p class="foot">Source: Atlas Vs Non-Atlas Spend and Creative Trend.xlsx · Values are metric averages; source has no absolute volume.</p>
+  <p class="foot">Unity Ads auction benchmarks, US, snapshot as of Aug 14 2026. Not a time series. Based on the top 4 titles Atlas Earth bids against. Blend is volume-weighted; Competitor 2 contributes 94% of blended iOS installs and 98% of Android. Titles are not fully apples to apples as some run different ROAS models.</p>
 </div>
 
 <script>
-const ATLAS="#7c3aed", COMP="#c3c2b7", GRID="#e7e6e0", TXT="#52514e";
-
-// value labels drawn above bars
-const valueLabels={
-  id:"valueLabels",
-  afterDatasetsDraw(chart,args,opts){
-    const ctx=chart.ctx; ctx.save();
-    ctx.font="600 11px -apple-system,Segoe UI,Arial"; ctx.textAlign="center"; ctx.fillStyle=TXT;
-    chart.data.datasets.forEach((ds,di)=>{
-      const meta=chart.getDatasetMeta(di);
-      meta.data.forEach((bar,i)=>{
-        const v=ds.data[i];
-        if(v===null||v===undefined) return;
-        ctx.fillText(opts.fmt?opts.fmt(v):v, bar.x, bar.y-4);
-      });
-    });
-    ctx.restore();
-  }
-};
+const ATLAS="#7c3aed", C1="#eb6834", FIELD="#c3c2b7", GRID="#e7e6e0", TXT="#52514e";
+const valueLabels={id:"valueLabels",afterDatasetsDraw(chart,a,opts){
+  const ctx=chart.ctx;ctx.save();ctx.font="600 10px -apple-system,Segoe UI,Arial";ctx.textAlign="center";ctx.fillStyle=TXT;
+  chart.data.datasets.forEach((ds,di)=>{const meta=chart.getDatasetMeta(di);meta.data.forEach((bar,i)=>{
+    const v=ds.data[i];if(v==null)return;ctx.fillText(opts.fmt?opts.fmt(v):v,bar.x,bar.y-4);});});ctx.restore();}};
 Chart.register(valueLabels);
-
 const money=v=>"$"+(Number.isInteger(v)?v:v.toFixed(2));
+const pct=v=>v.toFixed(2)+"%";
 const pct1=v=>v.toFixed(1)+"%";
-const pct2=v=>v.toFixed(2)+"%";
-const num1=v=>v.toFixed(1);
-const numI=v=>String(v);
-
-function grouped(id,labels,atlas,comp,fmt,{suggestedMax=null,rotate=false}={}){
-  new Chart(document.getElementById(id),{
-    type:"bar",
-    data:{labels,datasets:[
-      {label:"Atlas",data:atlas,backgroundColor:ATLAS,borderRadius:3,maxBarThickness:46},
-      {label:"Market",data:comp,backgroundColor:COMP,borderRadius:3,maxBarThickness:46}
-    ]},
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      layout:{padding:{top:18}},
-      plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:c=>c.dataset.label+": "+(fmt?fmt(c.parsed.y):c.parsed.y)}},
-        valueLabels:{fmt}},
-      scales:{
-        x:{grid:{display:false},ticks:{color:"#52514e",font:{size:11},maxRotation:rotate?40:0,minRotation:rotate?40:0}},
-        y:{beginAtZero:true,suggestedMax,grid:{color:GRID},ticks:{display:false},border:{display:false}}
-      }
-    }
-  });
+const num=v=>v.toFixed(1);
+function grouped(id,atlas,c1,field,fmt,max){
+  new Chart(document.getElementById(id),{type:"bar",
+    data:{labels:["iOS","Android"],datasets:[
+      {label:"Atlas Earth",data:atlas,backgroundColor:ATLAS,borderRadius:3,maxBarThickness:34},
+      {label:"Competitor 1",data:c1,backgroundColor:C1,borderRadius:3,maxBarThickness:34},
+      {label:"Field",data:field,backgroundColor:FIELD,borderRadius:3,maxBarThickness:34}]},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:18}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.dataset.label+": "+(fmt?fmt(c.parsed.y):c.parsed.y)}},valueLabels:{fmt}},
+      scales:{x:{grid:{display:false},ticks:{color:"#33404A",font:{size:11}}},
+        y:{beginAtZero:true,suggestedMax:max,grid:{color:GRID},ticks:{display:false},border:{display:false}}}}});
 }
-
-/* ---- Section 1: US spend ---- */
-const PLAT=["US iOS","US Android"];
-grouped("ecpm",PLAT,[92,94],[40,40],money,{suggestedMax:110});
-grouped("cpi",PLAT,[26,13],[9.21,4.72],money,{suggestedMax:31});
-grouped("ipm",PLAT,[3.5,7.5],[4.3,8.4],num1,{suggestedMax:10});
-grouped("cvr",PLAT,[0.35,0.75],[0.43,0.84],pct2,{suggestedMax:1.0});
-grouped("ir",PLAT,[0.37,0.89],[0.53,1.16],pct2,{suggestedMax:1.35});
-
-/* ---- Section 2: creative pack ---- */
-const CELLS=["iOS playable","iOS video+play","iOS video","Android vid+play","Android video","Android playable"];
-grouped("sos",CELLS,[0.2,59.7,0.0,37.2,0.5,2.4],[6.6,16.6,75.8,0.0,0.6,0.4],pct1,{suggestedMax:85,rotate:true});
-grouped("cipm",CELLS,[2,3,0,8,6,10],[1,43,1,105,31,7],numI,{suggestedMax:120,rotate:true});
-grouped("ccpi",CELLS,[23,26,null,11,7.51,4.54],[26,5.20,6.90,0.05,0.24,30],money,{suggestedMax:35,rotate:true});
+grouped("ecpm",[85.23,89.97],[67.44,48.08],[61.75,79.06],money,110);
+grouped("cpi",[22.12,11.97],[27.94,35.80],[4.22,2.25],money,42);
+grouped("ipm",[3.85,7.52],[2.41,1.34],[14.63,35.11],num,42);
+grouped("cvr",[0.39,0.75],[0.24,0.13],[1.46,3.51],pct,4.2);
+grouped("ir",[0.41,0.89],[0.26,0.15],[1.58,4.30],pct,5.2);
+grouped("ret",[9.4,5.1],[12.1,12.1],[10.1,6.9],pct1,15);
 </script>
 </body>
 </html>
