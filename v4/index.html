@@ -7,6 +7,7 @@
 <title>Atlas Earth · UA QBR</title>
 <style>
   html{scroll-behavior:smooth}
+  h2{scroll-margin-top:24px}
   :root{
     color-scheme: light;
     --surface:#ffffff; --plane:#f7f7f5;
@@ -407,13 +408,14 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
 
 
   /* ---------- scrollspy rail ---------- */
-  .spy{position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:60; display:none; flex-direction:column; gap:11px; align-items:flex-end}
+  .spy{position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:60; display:none; flex-direction:column; gap:10px; align-items:flex-end; padding:10px 6px; border-radius:14px; transition:background .16s}
+  .spy:hover{background:rgba(255,255,255,.7); backdrop-filter:blur(6px); box-shadow:0 8px 28px rgba(11,11,11,.1)}
   .spy button{display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; padding:2px 0; font:inherit}
   .spy .lbl{opacity:0; transform:translateX(8px); transition:opacity .16s, transform .16s; white-space:nowrap;
     font-size:11.5px; font-weight:700; color:var(--ink); background:var(--surface); border:1px solid var(--ring);
     border-radius:99px; padding:5px 11px; box-shadow:0 4px 14px rgba(11,11,11,.1)}
   .spy .d{width:9px; height:9px; border-radius:50%; background:var(--baseline); flex:none; transition:all .16s}
-  .spy button:hover .lbl{opacity:1; transform:none}
+  .spy:hover .lbl{opacity:1; transform:none}
   .spy button:hover .d{background:var(--s1)}
   .spy button.on .d{width:11px; height:11px; background:var(--s1); box-shadow:0 0 0 4px var(--s1-soft)}
   .spy button.on .lbl{opacity:1; transform:none}
@@ -1752,15 +1754,19 @@ renderGeoChart('itChart',
   function build(){
     var p=document.querySelector('.panel.active'); rail.innerHTML=''; secs=[];
     if(!p){ rail.style.display='none'; return; }
-    var list=[].slice.call(p.children).filter(function(el){ return el.tagName==='SECTION'; });
+    var list=[].slice.call(p.querySelectorAll('h2'));
     if(list.length<2){ rail.style.display='none'; return; }
     rail.style.display='flex';
-    list.forEach(function(s){
-      var hEl=s.querySelector('h2'); var label=hEl?hEl.textContent.replace(/[:,].*$/,'').trim():'Section';
+    list.forEach(function(hEl){
+      var label=hEl.textContent.replace(/\s*★.*$/,'').trim();
+      var pre=label.split(':')[0];
+      if(pre.length>=12) label=pre;
+      label=label.replace(/,.*$/,'').trim();
+      if(label.length>30) label=label.slice(0,28).trim()+'\u2026';
       var b=document.createElement('button');
       b.innerHTML='<span class="lbl">'+label+'</span><span class="d"></span>';
-      b.addEventListener('click',function(){ var y=s.getBoundingClientRect().top+window.scrollY-16; window.scrollTo({top:y,behavior:'smooth'}); });
-      rail.appendChild(b); secs.push(s);
+      b.addEventListener('click',function(){ var y=hEl.getBoundingClientRect().top+window.scrollY-22; window.scrollTo({top:y,behavior:'smooth'}); });
+      rail.appendChild(b); secs.push(hEl);
     });
     spy();
   }
