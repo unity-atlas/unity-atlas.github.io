@@ -242,9 +242,9 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
     padding:11px 0; font:700 13px/1 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer;
     box-shadow:0 3px 10px rgba(91,33,182,.35)}
   .presentbtn:hover{filter:brightness(1.07)}
-  .stage-backdrop,.stage-ctrl,.stage-exit,.stage-timeline,.slide-prog{display:none}
+  .stage-backdrop,.stage-ctrl,.stage-exit,.stage-timeline,.slide-prog,.stage-subnav{display:none}
   #stageSec{display:none}
-  body.presenting .slide-prog{display:block; position:fixed; z-index:95; top:8.4vh; left:50%; transform:translateX(-50%);
+  body.presenting .slide-prog{display:block; position:fixed; z-index:95; top:14.4vh; left:50%; transform:translateX(-50%);
     width:min(1220px,95vw); height:4px; background:rgba(255,255,255,.16); border-radius:0 0 4px 4px; overflow:hidden}
   body.presenting .slide-prog .sp-fill{display:block; height:100%; width:0%; background:linear-gradient(90deg,#7c3aed,#c084fc); transition:width .1s linear}
   body.presenting #stageSec{display:inline; max-width:34ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
@@ -257,8 +257,8 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   body.presenting aside.side{display:none}
   body.presenting header{display:none}
   body.presenting .pnav{display:none}
-  body.presenting .panel.active{position:fixed; z-index:90; top:9vh; left:0; right:0; margin:0 auto; transform:none;
-    width:min(1220px, 95vw); height:88.5vh; overflow-y:auto; background:var(--plane); border-radius:18px;
+  body.presenting .panel.active{position:fixed; z-index:90; top:15vh; left:0; right:0; margin:0 auto; transform:none;
+    width:min(1220px, 95vw); height:82.5vh; overflow-y:auto; background:var(--plane); border-radius:18px;
     padding:26px 34px; box-shadow:0 24px 70px rgba(0,0,0,.5)}
   body.presenting .stage-timeline{display:flex; position:fixed; z-index:95; top:0; left:0; right:0;
     align-items:flex-end; gap:7px; padding:14px 68px 10px; width:min(1220px, 95vw); margin:0 auto}
@@ -272,6 +272,19 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   .stage-timeline .st-step.active .st-bar{background:#c084fc; height:4px}
   .stage-timeline .st-step.active .st-lbl{color:#fff; font-weight:700}
   .stage-timeline .st-step:hover .st-lbl{color:#fff}
+
+   body.presenting .stage-subnav{display:flex; position:fixed; z-index:95; top:6.6vh; left:50%; transform:translateX(-50%);
+     gap:7px; width:min(1220px, 95vw); padding:0 68px}
+   body.presenting .stage-subnav:empty{display:none}
+   .stage-subnav .sn-step{flex:1 1 0; min-width:0; display:flex; align-items:center; gap:7px; cursor:pointer;
+     background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); border-radius:99px; padding:6px 12px;
+     font:inherit; font-size:11.5px; font-weight:600; color:rgba(255,255,255,.62); white-space:nowrap;
+     overflow:hidden; transition:background .2s,color .2s,border-color .2s}
+   .stage-subnav .sn-step .sn-dot{width:6px; height:6px; border-radius:50%; background:currentColor; flex:none}
+   .stage-subnav .sn-step .sn-t{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+   .stage-subnav .sn-step.done{color:rgba(255,255,255,.85)}
+   .stage-subnav .sn-step.active{background:#7c3aed; border-color:#7c3aed; color:#fff}
+   .stage-subnav .sn-step:hover{color:#fff; border-color:rgba(255,255,255,.4)}
   body.presenting .panel.active{animation:stgNext .34s cubic-bezier(.22,.7,.3,1)}
   body.presenting[data-stage-dir="prev"] .panel.active{animation:stgPrev .34s cubic-bezier(.22,.7,.3,1)}
   @keyframes stgNext{from{opacity:0; transform:translateX(46px)} to{opacity:1; transform:none}}
@@ -1471,6 +1484,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
 
 <div class="stage-backdrop"></div>
 <div class="stage-timeline" id="stageTimeline"></div>
+<div class="stage-subnav" id="stageSubnav"></div>
 <div class="slide-prog" id="slideProg"><span class="sp-fill"></span></div>
 <button class="stage-exit" id="stageExit" title="Exit (Esc)">✕</button>
 <div class="stage-ctrl"><button id="stgPrev">‹</button><span id="stageCnt">1 / 9</span><span id="stageSec"></span><button id="stgNext">›</button></div>
@@ -1891,31 +1905,55 @@ renderGeoChart('itChart',
     });
   }
 
-  /* in-slide scroll status: fill bar + current section header */
+  /* in-slide scroll status: section-header sub-nav + fill bar + current section */
   const slideFill = document.querySelector('#slideProg .sp-fill');
   const secLbl = document.getElementById('stageSec');
+  const subnav = document.getElementById('stageSubnav');
   let boundPanel = null;
+  let subSteps = [];   // {el, h}
+
+  const cleanHdr = t => t.replace(/\s*★.*$/,'').replace(/\s+/g,' ').trim();
+
+  function buildSubnav(p){
+    subnav.innerHTML = ''; subSteps = [];
+    const hs = [...p.querySelectorAll('h2')];
+    if (hs.length < 2) return;               // nothing to sub-navigate
+    hs.forEach(h => {
+      let label = cleanHdr(h.textContent);
+      if (label.length > 26) label = label.slice(0, 24).trim() + '…';
+      const b = document.createElement('button');
+      b.className = 'sn-step';
+      b.innerHTML = '<span class="sn-dot"></span><span class="sn-t">' + label + '</span>';
+      b.title = cleanHdr(h.textContent);
+      b.addEventListener('click', () => {
+        const y = h.offsetTop - 14;
+        p.scrollTo({ top: y, behavior: 'smooth' });
+      });
+      subnav.appendChild(b); subSteps.push({ el: b, h });
+    });
+  }
+
   function updateSlideStatus(){
     if (!document.body.classList.contains('presenting')) return;
     const p = document.querySelector('.panel.active'); if (!p) return;
     const max = p.scrollHeight - p.clientHeight;
     const frac = max > 8 ? Math.min(1, p.scrollTop / max) : 0;
     if (slideFill) slideFill.style.width = (frac * 100).toFixed(1) + '%';
-    const hs = [...p.querySelectorAll('h2')];
-    if (secLbl){
-      if (hs.length < 2){ secLbl.textContent = ''; }
-      else {
-        let curH = hs[0];
-        const line = p.getBoundingClientRect().top + 130;
-        hs.forEach(h => { if (h.getBoundingClientRect().top <= line) curH = h; });
-        secLbl.textContent = curH ? curH.textContent.replace(/\s*★.*$/,'').replace(/\s+/g,' ').trim() : '';
-      }
-    }
+    if (!subSteps.length){ if (secLbl) secLbl.textContent = ''; return; }
+    const line = p.getBoundingClientRect().top + 130;
+    let at = 0;
+    subSteps.forEach((s, i) => { if (s.h.getBoundingClientRect().top <= line) at = i; });
+    subSteps.forEach((s, i) => {
+      s.el.classList.toggle('active', i === at);
+      s.el.classList.toggle('done', i < at);
+    });
+    if (secLbl) secLbl.textContent = cleanHdr(subSteps[at].h.textContent);
   }
+
   function bindSlide(){
     const p = document.querySelector('.panel.active');
     if (boundPanel && boundPanel !== p) boundPanel.removeEventListener('scroll', updateSlideStatus);
-    if (p){ p.addEventListener('scroll', updateSlideStatus); boundPanel = p; }
+    if (p){ buildSubnav(p); p.addEventListener('scroll', updateSlideStatus); boundPanel = p; }
     updateSlideStatus();
   }
 
