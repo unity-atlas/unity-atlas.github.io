@@ -242,7 +242,14 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
     padding:11px 0; font:700 13px/1 system-ui,-apple-system,"Segoe UI",sans-serif; cursor:pointer;
     box-shadow:0 3px 10px rgba(91,33,182,.35)}
   .presentbtn:hover{filter:brightness(1.07)}
-  .stage-backdrop,.stage-ctrl,.stage-exit,.stage-timeline{display:none}
+  .stage-backdrop,.stage-ctrl,.stage-exit,.stage-timeline,.slide-prog{display:none}
+  #stageSec{display:none}
+  body.presenting .slide-prog{display:block; position:fixed; z-index:95; top:8.4vh; left:50%; transform:translateX(-50%);
+    width:min(1220px,95vw); height:4px; background:rgba(255,255,255,.16); border-radius:0 0 4px 4px; overflow:hidden}
+  body.presenting .slide-prog .sp-fill{display:block; height:100%; width:0%; background:linear-gradient(90deg,#7c3aed,#c084fc); transition:width .1s linear}
+  body.presenting #stageSec{display:inline; max-width:34ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-weight:600; color:rgba(255,255,255,.8); font-size:12.5px; padding-left:10px; margin-left:4px; border-left:1px solid rgba(255,255,255,.28)}
+  body.presenting #stageSec:empty{display:none}
   body.presenting{overflow:hidden}
   body.presenting .stage-backdrop{display:block; position:fixed; inset:0; z-index:80;
     background:radial-gradient(circle at 30% 15%, #3b1470, #14042e)}
@@ -459,6 +466,14 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   .ai-msg.bot.revealed .ai-typing{display:none}
   .ai-msg.bot.revealed .ai-text{display:inline; animation:aiFade .45s ease both}
   @keyframes aiFade{from{opacity:0; transform:translateY(5px)}to{opacity:1; transform:none}}
+  .ai-vid{position:relative; width:100%; max-width:360px; margin-top:8px; border-radius:16px; overflow:hidden;
+    background:#0b0b12; box-shadow:0 12px 38px rgba(60,20,120,.16); border:1px solid var(--ring)}
+  .ai-vid-el{display:block; width:100%; height:auto; background:#0b0b12}
+  .ai-vid-play{position:absolute; inset:0; margin:auto; width:64px; height:64px; border-radius:50%; border:none;
+    background:rgba(124,58,237,.92); color:#fff; font-size:22px; cursor:pointer; display:flex; align-items:center;
+    justify-content:center; padding-left:4px; box-shadow:0 6px 20px rgba(0,0,0,.35); transition:transform .15s, opacity .2s}
+  .ai-vid-play:hover{transform:scale(1.07)}
+  .ai-vid.playing .ai-vid-play{opacity:0; pointer-events:none}
 </style>
 </head>
 <body>
@@ -1423,6 +1438,18 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
     </section>
 
     <section>
+      <div class="sec-head">
+        <h2>See it in action: AI-assisted integration</h2>
+        <span class="sec-sub">The Unity Assistant wires up LevelPlay for a developer in plain language, &ldquo;I want to put ads in my game&rdquo; becomes a working integration</span>
+      </div>
+      <div class="ai-vid">
+        <video class="ai-vid-el" src="https://unity-atlas.github.io/assets/videos/ai-assistant-levelplay.mp4" preload="metadata" playsinline controls muted loop></video>
+        <button class="ai-vid-play" type="button" aria-label="Play">&#9654;</button>
+      </div>
+      <p style="font-size:12px; color:var(--muted); margin-top:10px">Unity Assistant (Beta), shown for context, the same AI direction behind Campaign Assistant.</p>
+    </section>
+
+    <section>
       <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; justify-content:space-between; border:1px solid var(--ring); border-left:3px solid var(--s1); border-radius:14px; padding:18px 22px; background:linear-gradient(120deg, var(--s1-soft), transparent 60%)">
         <div>
           <div style="font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#6d28d9; margin-bottom:5px">FULL REVIEW</div>
@@ -1444,8 +1471,9 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
 
 <div class="stage-backdrop"></div>
 <div class="stage-timeline" id="stageTimeline"></div>
+<div class="slide-prog" id="slideProg"><span class="sp-fill"></span></div>
 <button class="stage-exit" id="stageExit" title="Exit (Esc)">✕</button>
-<div class="stage-ctrl"><button id="stgPrev">‹</button><span id="stageCnt">1 / 9</span><button id="stgNext">›</button></div>
+<div class="stage-ctrl"><button id="stgPrev">‹</button><span id="stageCnt">1 / 9</span><span id="stageSec"></span><button id="stgNext">›</button></div>
 <script>
 
 /* ---------- sidebar menu ---------- */
@@ -1803,6 +1831,19 @@ renderGeoChart('itChart',
 })();
 
 
+/* AI assistant video: custom play overlay */
+(() => {
+  document.querySelectorAll('.ai-vid').forEach(box => {
+    const v = box.querySelector('.ai-vid-el');
+    const btn = box.querySelector('.ai-vid-play');
+    if (!v || !btn) return;
+    const play = () => { v.muted = false; v.play(); };
+    btn.addEventListener('click', play);
+    v.addEventListener('play', () => box.classList.add('playing'));
+    v.addEventListener('pause', () => box.classList.remove('playing'));
+  });
+})();
+
 /* Campaign Assistant: type, then reveal, when scrolled into view */
 (() => {
   const bots = document.querySelectorAll('.ai-msg.bot');
@@ -1846,6 +1887,34 @@ renderGeoChart('itChart',
     });
   }
 
+  /* in-slide scroll status: fill bar + current section header */
+  const slideFill = document.querySelector('#slideProg .sp-fill');
+  const secLbl = document.getElementById('stageSec');
+  let boundPanel = null;
+  function updateSlideStatus(){
+    if (!document.body.classList.contains('presenting')) return;
+    const p = document.querySelector('.panel.active'); if (!p) return;
+    const max = p.scrollHeight - p.clientHeight;
+    const frac = max > 8 ? Math.min(1, p.scrollTop / max) : 0;
+    if (slideFill) slideFill.style.width = (frac * 100).toFixed(1) + '%';
+    const hs = [...p.querySelectorAll('h2')];
+    if (secLbl){
+      if (hs.length < 2){ secLbl.textContent = ''; }
+      else {
+        let curH = hs[0];
+        const line = p.getBoundingClientRect().top + 130;
+        hs.forEach(h => { if (h.getBoundingClientRect().top <= line) curH = h; });
+        secLbl.textContent = curH ? curH.textContent.replace(/\s*★.*$/,'').replace(/\s+/g,' ').trim() : '';
+      }
+    }
+  }
+  function bindSlide(){
+    const p = document.querySelector('.panel.active');
+    if (boundPanel && boundPanel !== p) boundPanel.removeEventListener('scroll', updateSlideStatus);
+    if (p){ p.addEventListener('scroll', updateSlideStatus); boundPanel = p; }
+    updateSlideStatus();
+  }
+
   const orig = window.activateTab;
   window.activateTab = function(id){
     orig(id);
@@ -1853,6 +1922,7 @@ renderGeoChart('itChart',
     if (p && document.body.classList.contains('presenting')) p.scrollTop = 0;
     if (cnt) cnt.textContent = (TAB_ORDER.indexOf(id) + 1) + ' / ' + TAB_ORDER.length;
     paintTimeline(id);
+    if (document.body.classList.contains('presenting')) requestAnimationFrame(bindSlide);
   };
   const cur = () => document.querySelector('nav.menu button[aria-selected="true"]').dataset.tab;
   const step = d => { document.body.setAttribute('data-stage-dir', d < 0 ? 'prev' : 'next'); const i = TAB_ORDER.indexOf(cur()) + d; if (i >= 0 && i < TAB_ORDER.length) window.activateTab(TAB_ORDER[i]); };
