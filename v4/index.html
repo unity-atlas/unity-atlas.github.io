@@ -1837,6 +1837,10 @@ renderGeoChart('itChart',
     const v = box.querySelector('.ai-vid-el');
     const btn = box.querySelector('.ai-vid-play');
     if (!v || !btn) return;
+    // show a real poster frame instead of black
+    let seeked = false;
+    v.addEventListener('loadedmetadata', () => { try { if (!seeked) v.currentTime = 0.1; } catch(e){} });
+    v.addEventListener('seeked', () => { seeked = true; });
     const play = () => { v.muted = false; v.play(); };
     btn.addEventListener('click', play);
     v.addEventListener('play', () => box.classList.add('playing'));
