@@ -496,6 +496,15 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   .lp-badge.ea{background:var(--s1-soft); color:#6d28d9}
   .lp-badge.soon{background:#f1efe9; color:#6b675e}
   @media(max-width:820px){.lp-notes{grid-template-columns:1fr}}
+  .geo-exp{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px}
+  .ge-card{background:#fff; border:1px solid var(--ring); border-radius:12px; padding:14px 16px}
+  .ge-flag{font-size:24px; line-height:1}
+  .ge-geo{font-size:14px; font-weight:700; margin-top:6px}
+  .ge-stat{font-size:12px; color:var(--ink-2); margin-top:7px}
+  .ge-stat b{font-size:20px; color:var(--ink); margin-right:5px}
+  .ge-stat span{display:block; font-size:11px; color:var(--muted); margin-top:2px}
+  .ge-note{font-size:12px; color:var(--ink-2); line-height:1.45; margin-top:9px}
+  @media(max-width:820px){.geo-exp{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -886,7 +895,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
 
   <!-- ================= GROWTH & OPPORTUNITIES ================= -->
   <div class="panel" id="tab-growth">
-    <div class="takeaway"><span class="tk-ic">⭐</span><p>One ask today: <b>green-light the Payer pilot</b>, funded by the iOS D7 reallocation, no new budget.</p></div>
+    <div class="takeaway"><span class="tk-ic">⭐</span><p>Two asks today: <b>green-light the Payer pilot</b> (no new budget), and <b>open UK, Canada and France</b>, where you already have the organic demand.</p></div>
     <div class="opp-hero">
       <div class="tag">New opportunity · proposed pilot</div>
       <h2>Payer campaign: built to find your IAP buyers</h2>
@@ -906,6 +915,26 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
     </div>
 
     <section>
+      <div class="opp-hero">
+        <div class="tag">Growth opportunity · geo expansion</div>
+        <h2>Open UK, Canada and France</h2>
+        <p>Three markets where Atlas Earth already has real organic demand and no Unity Ads spend behind it yet. Same playbook that made Germany your best payback in the portfolio.</p>
+        <div class="geo-exp">
+          <div class="ge-card"><div class="ge-flag">&#127468;&#127463;</div><div class="ge-geo">United Kingdom</div><div class="ge-stat"><b>110,091</b> organic installs<span>4.8% of global</span></div><div class="ge-note">English, so your US creatives run as-is. Fastest to switch on.</div></div>
+          <div class="ge-card"><div class="ge-flag">&#127464;&#127462;</div><div class="ge-geo">Canada</div><div class="ge-stat"><b>87,104</b> organic installs<span>3.8% of global</span></div><div class="ge-note">English too. Launch next to the UK on the same creatives.</div></div>
+          <div class="ge-card"><div class="ge-flag">&#127467;&#127479;</div><div class="ge-geo">France</div><div class="ge-stat"><b>136,974</b> organic installs<span>6.0%, your 3rd-biggest market</span></div><div class="ge-note">Needs localized creatives, same as we did for Germany and Italy.</div></div>
+        </div>
+        <div class="terms" style="margin-top:16px">
+          <div class="term"><b>$1K/day per OS</b>proposed test budget, per geo</div>
+          <div class="term"><b>UK + CA first</b>English, no new creative work</div>
+          <div class="term"><b>France next</b>once we localize the top creatives</div>
+          <div class="term"><b>The bar</b>5%+ D7 ROAS to scale, same as everywhere</div>
+        </div>
+        <p style="margin-top:14px"><b>Why now:</b> the demand is already there and we are leaving it on the table. Start small, read at 4 to 6 weeks on D7 ROAS, and only scale what clears the bar Germany already cleared.</p>
+      </div>
+    </section>
+
+    <section>
       <div class="sec-head"><h2>The rest of the growth agenda</h2></div>
       <div class="opps">
         <div class="opp"><div class="num">02</div><h3>Expand Germany: iOS + Hybrid D28</h3>
@@ -914,11 +943,9 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
           <p>Both reached core-level efficiency within 6 weeks. Time to make them permanent.</p></div>
         <div class="opp"><div class="num">04</div><h3>Fund the Android D28 scale-up</h3>
           <p>Our best scaling campaign right now, and it's capped by budget. More from Liz, or shift $1,500/day from Android D7.</p></div>
-        <div class="opp"><div class="num">05</div><h3>Next geos</h3>
-          <p>Germany proved the playbook. After the iOS tests we shortlist UK, France, Netherlands or Canada at test scale.</p></div>
-        <div class="opp"><div class="num">06</div><h3>iOS D7 reallocation</h3>
+        <div class="opp"><div class="num">05</div><h3>iOS D7 reallocation</h3>
           <p>Set the budget to $6K (efficient spend is $5–6K of the $8K cap) and reallocate $2K to the Payer campaign.</p></div>
-        <div class="opp"><div class="num">07</div><h3>Android D7: the watch item</h3>
+        <div class="opp"><div class="num">06</div><h3>Android D7: the watch item</h3>
           <p>July payback dipped and we flagged it this week. Tightening creatives and bids before adding budget.</p></div>
       </div>
     </section>
@@ -935,11 +962,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
         <div class="chip"><b>ROAS ×2</b><span>long-form value roughly doubles from day 7 to day 28</span></div>
         <div class="chip"><b>Limited access</b><span>keeps longer-video costs healthy across the network</span></div>
       </div>
-      <ul class="why" style="margin-top:14px">
-        <li>Long video holds attention at least as well as short: higher completion, day-7 retention and click-through.</li>
-        <li>Value builds over time and strengthens faster than short video.</li>
-        <li>The ask: brief one 60 to 90 second narrative video for the next creative batch.</li>
-      </ul>
+      <p style="font-size:13.5px; color:var(--ink-2); margin-top:14px"><b>The ask:</b> brief one 60 to 90 second narrative video for the next creative batch.</p>
     </section>
   </div>
 
