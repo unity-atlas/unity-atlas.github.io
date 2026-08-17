@@ -1266,7 +1266,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
 
     <section>
       <div class="sec-head"><h2>How we run creative optimization</h2></div>
-      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Video and playables are the best converting formats we run.</b> Playables lead, and the top videos pair with them as end cards. Send us a fresh playable batch every few weeks and we handle the rest. We already shipped one-tap localized playables with the Storm team.</div>
+      <div class="mnote" style="margin:12px 0 4px">🎮 <b>Video and playables are your best converting formats.</b> Playables lead, top videos pair as end cards. Send a fresh playable batch every few weeks and we handle the rest.</div>
       <div class="bench">
         <div class="b"><h3>Refresh cadence</h3>
           <ul>
@@ -1278,9 +1278,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
           <ul>
             <li><b>CVR vs campaign average</b>, remove below 80% after a minimum test spend</li>
             <li><b>D1/D7 ROAS per creative</b>, high CVR that buys non-payers doesn't survive</li>
-            <li><b>eCPM as a supporting signal</b>, watch for early fatigue</li>
-            <li><b>Cadence</b>, review weekly; remove and rotate on a fixed interval</li>
-            <li><b>Hard floor</b>, creatives running at 1–2% ROAS are removed to protect the blend</li>
+            <li><b>Hard floor</b>, creatives at 1–2% ROAS are removed to protect the blend</li>
           </ul></div>
         <div class="b"><h3>Test protocol</h3>
           <ul>
@@ -1498,7 +1496,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
         <span class="sec-sub">The Unity Assistant wires up LevelPlay for a developer in plain language, &ldquo;I want to put ads in my game&rdquo; becomes a working integration</span>
       </div>
       <div class="ai-vid">
-        <video class="ai-vid-el" src="https://unity-atlas.github.io/assets/videos/ai-assistant-levelplay.mp4" preload="metadata" playsinline controls muted loop></video>
+        <video class="ai-vid-el" src="https://unity-atlas.github.io/assets/videos/ai-assistant-levelplay.mp4" poster="https://unity-atlas.github.io/assets/videos/ai-assistant-poster.jpg" preload="metadata" playsinline controls muted loop></video>
         <button class="ai-vid-play" type="button" aria-label="Play">&#9654;</button>
       </div>
       <p style="font-size:12px; color:var(--muted); margin-top:10px">Unity Assistant (Beta), shown for context, the same AI direction behind Campaign Assistant.</p>
@@ -1893,10 +1891,6 @@ renderGeoChart('itChart',
     const v = box.querySelector('.ai-vid-el');
     const btn = box.querySelector('.ai-vid-play');
     if (!v || !btn) return;
-    // show a real poster frame instead of black
-    let seeked = false;
-    v.addEventListener('loadedmetadata', () => { try { if (!seeked) v.currentTime = 0.1; } catch(e){} });
-    v.addEventListener('seeked', () => { seeked = true; });
     const play = () => { v.muted = false; v.play(); };
     btn.addEventListener('click', play);
     v.addEventListener('play', () => box.classList.add('playing'));
