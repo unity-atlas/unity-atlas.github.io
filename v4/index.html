@@ -487,6 +487,15 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
     justify-content:center; padding-left:4px; box-shadow:0 6px 20px rgba(0,0,0,.35); transition:transform .15s, opacity .2s}
   .ai-vid-play:hover{transform:scale(1.07)}
   .ai-vid.playing .ai-vid-play{opacity:0; pointer-events:none}
+  .lp-notes{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:6px}
+  .lp-note{border:1px solid var(--ring); border-radius:14px; padding:16px 18px; background:var(--surface)}
+  .lp-note h3{font-size:15px; margin:10px 0 6px}
+  .lp-note p{font-size:12.5px; color:var(--ink-2); line-height:1.5; margin:0}
+  .lp-badge{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 10px; border-radius:99px}
+  .lp-badge.live{background:#e6f7ef; color:#0f7a4d}
+  .lp-badge.ea{background:var(--s1-soft); color:#6d28d9}
+  .lp-badge.soon{background:#f1efe9; color:#6b675e}
+  @media(max-width:820px){.lp-notes{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -1434,19 +1443,29 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   </div>
 
   <div class="panel" id="tab-levelplay">
-    <div class="takeaway"><span class="tk-ic">⭐</span><p>The other half of the account: <b>LevelPlay mediation</b> is where Atlas Earth earns on ads. The full Q3 review lives in its own deck.</p></div>
+    <div class="takeaway"><span class="tk-ic">&#11088;</span><p>Three highlights from the LevelPlay Q3 2026 roadmap. Full deck below.</p></div>
 
     <section>
       <div class="sec-head">
-        <h2>LevelPlay: the monetization side of Atlas Earth</h2>
-        <span class="sec-sub">Unity's ad mediation platform · one unified auction across every ad network you run</span>
+        <h2>LevelPlay Q3 2026: three to know</h2>
+        <span class="sec-sub">Straight from the LevelPlay deck &middot; Intelligent Management, Competitive Demand, Publisher Ad Controls</span>
       </div>
-      <p style="font-size:13.5px; color:var(--ink-2); margin-top:6px; max-width:82ch; line-height:1.55">Everything so far has been the buying side, the UA we run to bring players in. LevelPlay is the selling side: it puts every ad network into a single real-time auction, so each impression goes to the highest bidder and your ad revenue per player climbs without extra lift on your end. For a hybrid title like Atlas Earth the two sides are one story, we buy quality installs and then monetize them well.</p>
-      <div class="chips" style="margin-top:16px">
-        <div class="chip"><b>Unified auction</b><span>every ad network bids on each impression in real time</span></div>
-        <div class="chip"><b>Ad quality controls</b><span>block low-quality ads and protect the player experience</span></div>
-        <div class="chip"><b>A/B testing built in</b><span>test placements, floors and waterfalls without risk</span></div>
-        <div class="chip"><b>One dashboard</b><span>revenue reporting, and the same signal that feeds Vector</span></div>
+      <div class="lp-notes">
+        <div class="lp-note">
+          <span class="lp-badge live">Q3 &middot; Live</span>
+          <h3>AI-assistance integration</h3>
+          <p>Ask the Unity AI Assistant to monetize your game and it integrates LevelPlay for you, from package install to a live ad in one guided session. Also a public LevelPlay skill for Claude Code.</p>
+        </div>
+        <div class="lp-note">
+          <span class="lp-badge ea">Q3 &middot; Early access</span>
+          <h3>Dynamic bid floors</h3>
+          <p>Floors that adjust automatically to live auction conditions, pushing the auction to surface higher-value demand on every impression.</p>
+        </div>
+        <div class="lp-note">
+          <span class="lp-badge soon">ETA Q4</span>
+          <h3>Modular Ads SDK</h3>
+          <p>LevelPlay, Unity Ads and Ad Quality become modules of one Ads SDK, a single dependency. Moving over is one change: swap your app key for your Game ID.</p>
+        </div>
       </div>
     </section>
 
