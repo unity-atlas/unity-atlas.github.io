@@ -507,16 +507,20 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
   @media(max-width:820px){.geo-exp{grid-template-columns:1fr}}
   .src-os{font-size:12px; font-weight:700; letter-spacing:.06em; color:var(--ink); margin-bottom:9px; padding-bottom:7px; border-bottom:1px solid var(--ring)}
   .osx{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px}
-  .osx-card{border-radius:16px; padding:20px 22px; color:#fff}
-  .osx-card.ios{background:linear-gradient(160deg,#0f5c46,#0a3b2e)}
-  .osx-card.android{background:linear-gradient(160deg,#7a3f16,#552a0e)}
-  .osx-h{font-size:15px; font-weight:800; letter-spacing:.02em; margin-bottom:12px}
-  .osx-row{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-top:1px solid rgba(255,255,255,.13); font-size:13px; color:rgba(255,255,255,.85)}
+  .osx-card{border-radius:16px; padding:20px 22px; border:1px solid var(--ring)}
+  .osx-card.ios{background:#f1f8f5; border-color:#c7e6d9}
+  .osx-card.android{background:#fdf5ee; border-color:#f0d9c4}
+  .osx-h{font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px}
+  .osx-card.ios .osx-h{color:#128a63}
+  .osx-card.android .osx-h{color:#c2652c}
+  .osx-row{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-top:1px solid rgba(20,20,25,.07); font-size:13px; color:var(--ink-2)}
   .osx-row:first-child{border-top:none}
-  .osx-row b{font-size:15px; color:#fff; font-weight:800}
-  .osx-sum{margin-top:14px; background:rgba(255,255,255,.11); border-radius:12px; padding:12px 14px}
-  .osx-sum b{display:block; font-size:14px; color:#fff}
-  .osx-sum span{display:block; font-size:12px; color:rgba(255,255,255,.78); margin-top:2px}
+  .osx-row b{font-size:15px; color:var(--ink); font-weight:800}
+  .osx-sum{margin-top:14px; border-radius:12px; padding:12px 14px}
+  .osx-card.ios .osx-sum{background:#e4f2ea}
+  .osx-card.android .osx-sum{background:#fae7d6}
+  .osx-sum b{display:block; font-size:14px; color:var(--ink)}
+  .osx-sum span{display:block; font-size:12px; color:var(--ink-2); margin-top:2px}
   @media(max-width:820px){.osx{grid-template-columns:1fr}}
 </style>
 </head>
@@ -762,7 +766,6 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
         </tbody>
       </table>
 
-      <div class="warnbox"><b>Where we'd put more budget</b><br>Both moves shift unused D7 budget into D28.<br><b>iOS D28:</b> wins on both payback (6.0% vs 5.2%) and retention (12.0% vs 8.2%). Scale it. Funded from iOS D7's unused cap.<br><b>Android D28:</b> payback is marginally lower (5.2% vs 5.8%) but retention is 73% higher (7.1% vs 4.1%). We want that depth for the DAU goal, and a source pass is running to close the payback gap. Funded from Android D7's unused cap.</div>
     
       <div class="sec-head" style="margin-top:6px">
         <h2>D28 vs D7 optimizers, split by OS</h2>
@@ -792,6 +795,7 @@ img.pv-av{object-fit:cover; object-position:center 18%; background:none}
       </div>
       <p style="font-size:11.5px; color:var(--muted); margin-top:12px; font-style:italic">Spend-weighted, US campaigns only, tCPE excluded as retired.</p>
       <p style="font-size:13px; color:var(--ink-2); margin-top:12px">The portfolio keeps both optimizers: D7 for efficient volume, D28 for depth. On iOS, D28 wins outright. On Android, D28 gives up a little early ROAS but nearly doubles retention, so it's the DAU lever.</p>
+      <div class="warnbox"><b>What we'd like to do:</b> move the D7 budget that is sitting unused into D28, on both platforms.<br><b>iOS</b> is the easy call. D28 wins on payback and retention, so we scale it, funded from iOS D7's unused cap.<br><b>Android</b> gives up a little early payback for much longer retention, and that depth is what the DAU goal needs. A source pass is already running to bring the early payback up, funded from Android D7's unused cap.</div>
 </section>
   </div>
 
