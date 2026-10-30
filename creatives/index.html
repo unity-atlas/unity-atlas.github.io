@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atlas Earth Creative Report</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: summary band (numbers, end-card table, weekly chart), then a two-column grid of creative cards with live previews */
+:root{
+  --bg:#F3F7F4; --surface:#FFFFFF; --ink:#132A1E; --muted:#5B6E63; --line:#DCE6DF;
+  --green:#2F8F3E; --sky:#2A86C9; --gold:#C98A12; --soft:#E6F1E9; --phone:#0F2418;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",sans-serif; --body:"Figtree","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0E1A13;--surface:#15241B;--ink:#E6F0E9;--muted:#9DB2A5;--line:#24382C;--green:#5CC26B;--sky:#5FAEE6;--gold:#E3AE45;--soft:#1B2E22;--phone:#06100A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1A13;--surface:#15241B;--ink:#E6F0E9;--muted:#9DB2A5;--line:#24382C;--green:#5CC26B;--sky:#5FAEE6;--gold:#E3AE45;--soft:#1B2E22;--phone:#06100A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 56px}
+header h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.01em}
+header p{color:var(--muted);margin:8px 0 0;max-width:68ch}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0 0}
+.num{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.num b{display:block;font-family:var(--display);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
+.num span{color:var(--muted);font-size:13px}
+h2{font-family:var(--display);font-weight:600;font-size:21px;margin:42px 0 12px;text-wrap:balance}
+.sub{color:var(--muted);margin:-6px 0 14px;font-size:14px;max-width:72ch}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:760px}
+th{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{text-align:right;padding:11px 14px;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th:first-child,td.nm{text-align:left}td.nm span{display:block;color:var(--muted);font-size:12.5px}
+tr.tot td{font-weight:700;background:var(--soft)}
+.chartbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.chartbox svg{width:100%;height:auto;display:block}
+.grid{stroke:var(--line);stroke-width:1}.ax{fill:var(--muted);font-size:12px;font-family:var(--body)}.vl{fill:var(--ink);font-size:12px;font-weight:700;font-family:var(--body)}
+.b-land{fill:var(--sky)}.b-mm{fill:var(--green)}.b-play{fill:var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0 0;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.endps{display:flex;flex-wrap:wrap;gap:22px}
+.endp{display:flex;gap:16px;align-items:center;margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;flex:1 1 340px;min-width:0}
+.endp figcaption{min-width:0}.endp figcaption b{display:block;font-size:16px}.endp figcaption span{color:var(--muted);font-size:13.5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:16px}
+.card{display:flex;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.media{flex:0 0 auto;width:162px}
+.phone{width:162px;height:288px;border-radius:16px;overflow:hidden;background:var(--phone);border:3px solid var(--phone);position:relative}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone.play iframe{position:absolute;left:0;top:0;width:360px;height:640px;border:0;transform:scale(.4333);transform-origin:0 0}
+.phone.none{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--soft);border-color:var(--line);border-style:dashed}
+.phone.none div{padding:14px;font-size:12.5px;color:var(--muted)}.phone.none b{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}
+.mnote{font-size:11.5px;color:var(--muted);margin:6px 0 0;text-align:center}
+.info{flex:1;min-width:0}
+.rank{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.info h3{font-family:var(--display);font-weight:600;font-size:20px;margin:2px 0 6px;line-height:1.2}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.up{margin:0 0 12px;font-size:13px;color:var(--muted)}
+.tag{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--soft);color:var(--ink)}
+.tag.land{color:var(--sky)}.tag.mm{color:var(--green)}.tag.pl{color:var(--gold)}.tag.soft{color:var(--muted);font-weight:600}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin:0}
+.kv div{min-width:0}.kv dt{font-size:11.5px;color:var(--muted)}.kv dd{margin:0;font-weight:700;font-size:15.5px;font-variant-numeric:tabular-nums}
+.spark{width:120px;height:28px;display:block}.spark .on{fill:var(--green)}.spark .off{fill:var(--line)}
+.missing{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--muted);margin-top:16px}
+.missing b{color:var(--ink)}
+footer{margin-top:34px;font-size:12.5px;color:var(--muted);max-width:90ch}
+@media (max-width:520px){.card{flex-direction:column;align-items:center}.info{width:100%}}
+@media (prefers-reduced-motion:reduce){video{animation:none}}
+</style></head><body>
+<div class="wrap">
+<header>
+  <h1>Atlas Earth creative report</h1>
+  <p>Unity Ads, weeks of Sep 14 to Oct 26, 2026. 22 creatives (30 creative packs), each with its video or live playable. Monument Match versions and the iOS and Android Price Match files are merged.</p>
+  <div class="nums">
+    <div class="num"><b>$15,194</b><span>Total spend</span></div>
+    <div class="num"><b>553</b><span>Installs</span></div>
+    <div class="num"><b>$27.48</b><span>Cost per install</span></div>
+    <div class="num"><b>2.66</b><span>Installs per 1,000 impressions</span></div>
+    <div class="num"><b>4.1%</b><span>D7 ROAS, weeks to Oct 12</span></div>
+  </div>
+</header>
+
+<h2>By end card</h2>
+<p class="sub">Videos grouped by the playable end card that runs after them. Playables that run on their own are listed separately.</p>
+<div class="tw"><table><thead><tr><th>End card</th><th>Spend</th><th>Share</th><th>Installs</th><th>CPI</th><th>IPM</th><th>D0 level<br>complete rate</th><th>D1 ROAS</th><th>D7 ROAS</th></tr></thead>
+<tbody><tr><td class="nm"><b>Land (new UI, 4 taps) + videos</b><span>11 creatives</span></td><td>$10,927.69</td><td>72%</td><td>323</td><td>$33.83</td><td>2.32</td><td>71%</td><td>2.7%</td><td>3.6%</td></tr><tr><td class="nm"><b>Monument Match + videos</b><span>5 creatives</span></td><td>$2,185.12</td><td>14%</td><td>113</td><td>$19.34</td><td>3.09</td><td>49%</td><td>1.8%</td><td>2.8%</td></tr><tr><td class="nm"><b>3 Parcels</b><span>1 creative</span></td><td>$1,163.27</td><td>8%</td><td>80</td><td>$14.54</td><td>6.12</td><td>71%</td><td>2.0%</td><td>–</td></tr><tr><td class="nm"><b>Monument Match</b><span>1 creative</span></td><td>$269.29</td><td>2%</td><td>12</td><td>$22.44</td><td>1.66</td><td>75%</td><td>1.5%</td><td>2.7%</td></tr><tr><td class="nm"><b>The Racers: Result</b><span>1 creative</span></td><td>$263.11</td><td>2%</td><td>10</td><td>$26.31</td><td>2.19</td><td>50%</td><td>0.5%</td><td>–</td></tr><tr><td class="nm"><b>The Racers: Podium</b><span>1 creative</span></td><td>$209.13</td><td>1%</td><td>8</td><td>$26.14</td><td>2.63</td><td>25%</td><td>3.3%</td><td>–</td></tr><tr><td class="nm"><b>Price Match</b><span>1 creative</span></td><td>$92.44</td><td>1%</td><td>3</td><td>$30.81</td><td>1.51</td><td>100%</td><td>1.2%</td><td>–</td></tr><tr><td class="nm"><b>Guess the Flight Time</b><span>1 creative</span></td><td>$84.31</td><td>1%</td><td>4</td><td>$21.08</td><td>1.80</td><td>75%</td><td>0.4%</td><td>1.0%</td></tr><tr class="tot"><td class="nm">Total</td><td>$15,194.36</td><td>100%</td><td>553</td><td>$27.48</td><td>2.66</td><td>65%</td><td>2.4%</td><td>4.1%</td></tr></tbody></table></div>
+
+<h2>Weekly spend</h2>
+<div class="chartbox"><svg viewBox="0 0 760 250" role="img" aria-label="Weekly spend by creative type"><line x1="52" x2="748" y1="216" y2="216" class="grid"/><text x="44" y="220" class="ax" text-anchor="end">$0</text><line x1="52" x2="748" y1="190.75" y2="190.75" class="grid"/><text x="44" y="194.75" class="ax" text-anchor="end">$500</text><line x1="52" x2="748" y1="165.5" y2="165.5" class="grid"/><text x="44" y="169.5" class="ax" text-anchor="end">$1,000</text><line x1="52" x2="748" y1="140.25" y2="140.25" class="grid"/><text x="44" y="144.25" class="ax" text-anchor="end">$1,500</text><line x1="52" x2="748" y1="115" y2="115" class="grid"/><text x="44" y="119" class="ax" text-anchor="end">$2,000</text><line x1="52" x2="748" y1="89.75" y2="89.75" class="grid"/><text x="44" y="93.75" class="ax" text-anchor="end">$2,500</text><line x1="52" x2="748" y1="64.5" y2="64.5" class="grid"/><text x="44" y="68.5" class="ax" text-anchor="end">$3,000</text><line x1="52" x2="748" y1="39.25" y2="39.25" class="grid"/><text x="44" y="43.25" class="ax" text-anchor="end">$3,500</text><line x1="52" x2="748" y1="14" y2="14" class="grid"/><text x="44" y="18" class="ax" text-anchor="end">$4,000</text><rect x="70.89142857142858" y="118.84086011800001" width="61.645714285714284" height="97.15913988199999" class="b-land"><title>Sep 14: $1,923.94</title></rect><text x="101.71428571428572" y="112.84086011800001" class="vl" text-anchor="middle">$1,924</text><text x="101.71428571428572" y="238" class="ax" text-anchor="middle">Sep 14</text><rect x="170.32" y="62.85848366299999" width="61.645714285714284" height="153.141516337" class="b-land"><title>Sep 21: $3,032.51</title></rect><rect x="170.32" y="44.31402475899998" width="61.645714285714284" height="18.54445890400001" class="b-mm"><title>Sep 21: $367.22</title></rect><rect x="170.32" y="38.444438039000005" width="61.645714285714284" height="5.8695867199999725" class="b-play"><title>Sep 21: $116.23</title></rect><text x="201.14285714285714" y="32.444438039000005" class="vl" text-anchor="middle">$3,516</text><text x="201.14285714285714" y="238" class="ax" text-anchor="middle">Sep 21</text><rect x="269.74857142857144" y="165.437365355" width="61.645714285714284" height="50.562634645" class="b-land"><title>Sep 28: $1,001.24</title></rect><rect x="269.74857142857144" y="125.38194952950002" width="61.645714285714284" height="40.05541582549998" class="b-mm"><title>Sep 28: $793.18</title></rect><rect x="269.74857142857144" y="104.7503774385" width="61.645714285714284" height="20.631572091000024" class="b-play"><title>Sep 28: $408.55</title></rect><text x="300.57142857142856" y="98.7503774385" class="vl" text-anchor="middle">$2,203</text><text x="300.57142857142856" y="238" class="ax" text-anchor="middle">Sep 28</text><rect x="369.1771428571429" y="159.3841758355" width="61.645714285714284" height="56.6158241645" class="b-land"><title>Oct 5: $1,121.11</title></rect><rect x="369.1771428571429" y="129.9900157475" width="61.645714285714284" height="29.394160088000007" class="b-mm"><title>Oct 5: $582.06</title></rect><rect x="369.1771428571429" y="121.90280237799999" width="61.645714285714284" height="8.087213369500006" class="b-play"><title>Oct 5: $160.14</title></rect><text x="400" y="115.90280237799999" class="vl" text-anchor="middle">$1,863</text><text x="400" y="238" class="ax" text-anchor="middle">Oct 5</text><rect x="468.6057142857143" y="133.4876126195" width="61.645714285714284" height="82.5123873805" class="b-land"><title>Oct 12: $1,633.91</title></rect><rect x="468.6057142857143" y="129.43078056550002" width="61.645714285714284" height="4.056832053999983" class="b-mm"><title>Oct 12: $80.33</title></rect><rect x="468.6057142857143" y="119.258309177" width="61.645714285714284" height="10.172471388500014" class="b-play"><title>Oct 12: $201.44</title></rect><text x="499.42857142857144" y="113.258309177" class="vl" text-anchor="middle">$1,916</text><text x="499.42857142857144" y="238" class="ax" text-anchor="middle">Oct 12</text><rect x="568.0342857142857" y="171.755271077" width="61.645714285714284" height="44.244728923" class="b-land"><title>Oct 19: $876.13</title></rect><rect x="568.0342857142857" y="162.74314419799998" width="61.645714285714284" height="9.012126879000022" class="b-mm"><title>Oct 19: $178.46</title></rect><rect x="568.0342857142857" y="124.22203002799999" width="61.645714285714284" height="38.52111416999999" class="b-play"><title>Oct 19: $762.79</title></rect><text x="598.8571428571429" y="118.22203002799999" class="vl" text-anchor="middle">$1,817</text><text x="598.8571428571429" y="238" class="ax" text-anchor="middle">Oct 19</text><rect x="667.4628571428572" y="148.387860173" width="61.645714285714284" height="67.612139827" class="b-land"><title>Oct 26: $1,338.85</title></rect><rect x="667.4628571428572" y="139.10228044000002" width="61.645714285714284" height="9.285579732999992" class="b-mm"><title>Oct 26: $183.87</title></rect><rect x="667.4628571428572" y="117.26582965700001" width="61.645714285714284" height="21.836450783000004" class="b-play"><title>Oct 26: $432.40</title></rect><text x="698.2857142857143" y="111.26582965700001" class="vl" text-anchor="middle">$1,955</text><text x="698.2857142857143" y="238" class="ax" text-anchor="middle">Oct 26*</text></svg>
+<div class="legend"><span><i style="background:var(--sky)"></i>Videos + Land end card</span><span><i style="background:var(--green)"></i>Videos + Monument Match</span><span><i style="background:var(--gold)"></i>Playables on their own</span><span>* week in progress</span></div></div>
+
+<h2>The two end cards</h2>
+<div class="endps"><figure class="endp"><div class="phone play"><iframe src="media/land_newui_4t.html" title="Land (new UI, 4 taps) end card" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><figcaption><b>Land (new UI, 4 taps)</b><span>Storm build, shown after Imagine, A Man, Breakfast Club, Duck Yourself and the 9x16 videos</span></figcaption></figure><figure class="endp"><div class="phone play"><iframe src="media/monument_match.html" title="Monument Match end card" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><figcaption><b>Monument Match</b><span>Shown after Breakfast Club, Postys, Duck Yourself, Nola Now and Fishing Spot</span></figcaption></figure></div>
+
+<h2>Every creative</h2>
+<p class="sub">Sorted by spend. Videos show a 10-second silent preview. Playables are the live files, so you can tap through them.</p>
+<div class="cards">
+<article class="card" id="c0">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#1 by spend</div>
+    <h3>Imagine 27s</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Sep 17, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$5,521.56</dd></div><div><dt>Installs</dt><dd>159</dd></div>
+      <div><dt>CPI</dt><dd>$34.73</dd></div><div><dt>IPM</dt><dd>2.54</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>73%</dd></div><div><dt>D7 level completes</dt><dd>119</dd></div>
+      <div><dt>D1 ROAS</dt><dd>2.7%</dd></div><div><dt>D7 ROAS</dt><dd>4.6%</dd></div>
+      <div><dt>D7 retention</dt><dd>12%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="10.3338290798328" width="15.142857142857142" height="17.6661709201672" class="on"/><rect x="18.142857142857142" y="2" width="15.142857142857142" height="26" class="on"/><rect x="35.285714285714285" y="23.998120116317136" width="15.142857142857142" height="4.001879883682865" class="on"/><rect x="52.42857142857143" y="25.596997464924847" width="15.142857142857142" height="2.4030025350751525" class="on"/><rect x="69.57142857142857" y="26" width="15.142857142857142" height="2" class="on"/><rect x="86.71428571428571" y="26" width="15.142857142857142" height="2" class="on"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c1">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#2 by spend</div>
+    <h3>A Man 34s</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Sep 17, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$2,525.57</dd></div><div><dt>Installs</dt><dd>82</dd></div>
+      <div><dt>CPI</dt><dd>$30.80</dd></div><div><dt>IPM</dt><dd>2.02</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>59%</dd></div><div><dt>D7 level completes</dt><dd>44</dd></div>
+      <div><dt>D1 ROAS</dt><dd>2.6%</dd></div><div><dt>D7 ROAS</dt><dd>3.7%</dd></div>
+      <div><dt>D7 retention</dt><dd>7%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="26" width="15.142857142857142" height="2" class="on"/><rect x="35.285714285714285" y="21.060728169079134" width="15.142857142857142" height="6.939271830920866" class="on"/><rect x="52.42857142857143" y="9.096670009161993" width="15.142857142857142" height="18.903329990838007" class="on"/><rect x="69.57142857142857" y="2" width="15.142857142857142" height="26" class="on"/><rect x="86.71428571428571" y="15.293304898403093" width="15.142857142857142" height="12.706695101596907" class="on"/><rect x="103.85714285714286" y="23.669968897181974" width="15.142857142857142" height="4.330031102818026" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c2">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#3 by spend</div>
+    <h3>Breakfast Club 47s</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded around Sep 16, 2026 (from the pack name)</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$1,702.14</dd></div><div><dt>Installs</dt><dd>48</dd></div>
+      <div><dt>CPI</dt><dd>$35.46</dd></div><div><dt>IPM</dt><dd>3.22</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>79%</dd></div><div><dt>D7 level completes</dt><dd>28</dd></div>
+      <div><dt>D1 ROAS</dt><dd>4.0%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>4%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="26" width="15.142857142857142" height="2" class="on"/><rect x="35.285714285714285" y="18.15920238403175" width="15.142857142857142" height="9.84079761596825" class="on"/><rect x="52.42857142857143" y="20.681098234858233" width="15.142857142857142" height="7.318901765141767" class="on"/><rect x="69.57142857142857" y="2" width="15.142857142857142" height="26" class="on"/><rect x="86.71428571428571" y="15.907743674293618" width="15.142857142857142" height="12.092256325706382" class="on"/><rect x="103.85714285714286" y="10.578382048949713" width="15.142857142857142" height="17.421617951050287" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c3">
+  <div class="media"><div class="phone play"><iframe src="media/three_parcels.html" title="3 Parcels playable" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><p class="mnote">Live playable, tap to try</p></div>
+  <div class="info">
+    <div class="rank">#4 by spend</div>
+    <h3>3 Parcels</h3>
+    <div class="tags"><span class="tag pl">Playable</span></div>
+    <p class="up">Uploaded Oct 1, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$1,163.27</dd></div><div><dt>Installs</dt><dd>80</dd></div>
+      <div><dt>CPI</dt><dd>$14.54</dd></div><div><dt>IPM</dt><dd>6.12</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>71%</dd></div><div><dt>D7 level completes</dt><dd>26</dd></div>
+      <div><dt>D1 ROAS</dt><dd>2.0%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>8%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="4.11782055658967" width="15.142857142857142" height="23.88217944341033" class="on"/><rect x="52.42857142857143" y="13.896101469715383" width="15.142857142857142" height="14.103898530284617" class="on"/><rect x="69.57142857142857" y="14.090057637456232" width="15.142857142857142" height="13.909942362543768" class="on"/><rect x="86.71428571428571" y="3.44604098594829" width="15.142857142857142" height="24.55395901405171" class="on"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c4">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#5 by spend</div>
+    <h3>Breakfast Club 47s</h3>
+    <div class="tags"><span class="tag mm">Video + Monument Match</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$846.56</dd></div><div><dt>Installs</dt><dd>45</dd></div>
+      <div><dt>CPI</dt><dd>$18.81</dd></div><div><dt>IPM</dt><dd>3.33</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>51%</dd></div><div><dt>D7 level completes</dt><dd>20</dd></div>
+      <div><dt>D1 ROAS</dt><dd>1.9%</dd></div><div><dt>D7 ROAS</dt><dd>3.3%</dd></div>
+      <div><dt>D7 retention</dt><dd>2%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="4.852670787750345" width="15.142857142857142" height="23.147329212249655" class="on"/><rect x="35.285714285714285" y="2" width="15.142857142857142" height="26" class="on"/><rect x="52.42857142857143" y="17.928082786741754" width="15.142857142857142" height="10.071917213258244" class="on"/><rect x="69.57142857142857" y="23.300390581971957" width="15.142857142857142" height="4.699609418028044" class="on"/><rect x="86.71428571428571" y="14.626265271100507" width="15.142857142857142" height="13.373734728899493" class="on"/><rect x="103.85714285714286" y="11.526947951921539" width="15.142857142857142" height="16.47305204807846" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c5">
+  <div class="media"><div class="phone"><video src="media/postys.mp4" poster="media/postys.jpg" autoplay muted loop playsinline preload="metadata"></video></div></div>
+  <div class="info">
+    <div class="rank">#6 by spend</div>
+    <h3>Postys 27s</h3>
+    <div class="tags"><span class="tag mm">Video + Monument Match</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$743.86</dd></div><div><dt>Installs</dt><dd>21</dd></div>
+      <div><dt>CPI</dt><dd>$35.42</dd></div><div><dt>IPM</dt><dd>2.46</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>57%</dd></div><div><dt>D7 level completes</dt><dd>11</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.7%</dd></div><div><dt>D7 ROAS</dt><dd>1.4%</dd></div>
+      <div><dt>D7 retention</dt><dd>10%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="26" width="15.142857142857142" height="2" class="on"/><rect x="35.285714285714285" y="2" width="15.142857142857142" height="26" class="on"/><rect x="52.42857142857143" y="3.796910698780824" width="15.142857142857142" height="24.203089301219176" class="on"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="25.492915747379058" width="15.142857142857142" height="2.507084252620941" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c6">
+  <div class="media"><div class="phone"><video src="media/duckyourself.mp4" poster="media/duckyourself.jpg" autoplay muted loop playsinline preload="metadata"></video></div></div>
+  <div class="info">
+    <div class="rank">#7 by spend</div>
+    <h3>Duck Yourself 16s</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded around Sep 16, 2026 (from the pack name)</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$439.29</dd></div><div><dt>Installs</dt><dd>10</dd></div>
+      <div><dt>CPI</dt><dd>$43.93</dd></div><div><dt>IPM</dt><dd>1.45</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>80%</dd></div><div><dt>D7 level completes</dt><dd>5</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.5%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>0%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="2" width="15.142857142857142" height="26" class="on"/><rect x="35.285714285714285" y="16.00131143845659" width="15.142857142857142" height="11.99868856154341" class="on"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="20.21726159677332" width="15.142857142857142" height="7.7827384032266815" class="on"/><rect x="86.71428571428571" y="15.20833019831504" width="15.142857142857142" height="12.79166980168496" class="on"/><rect x="103.85714285714286" y="22.921663913692882" width="15.142857142857142" height="5.078336086307119" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c7">
+  <div class="media"><div class="phone"><video src="media/duckyourself.mp4" poster="media/duckyourself.jpg" autoplay muted loop playsinline preload="metadata"></video></div></div>
+  <div class="info">
+    <div class="rank">#8 by spend</div>
+    <h3>Duck Yourself 16s</h3>
+    <div class="tags"><span class="tag mm">Video + Monument Match</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$370.89</dd></div><div><dt>Installs</dt><dd>22</dd></div>
+      <div><dt>CPI</dt><dd>$16.86</dd></div><div><dt>IPM</dt><dd>2.33</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>55%</dd></div><div><dt>D7 level completes</dt><dd>12</dd></div>
+      <div><dt>D1 ROAS</dt><dd>2.5%</dd></div><div><dt>D7 ROAS</dt><dd>2.7%</dd></div>
+      <div><dt>D7 retention</dt><dd>0%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="21.603600968427045" width="15.142857142857142" height="6.3963990315729555" class="on"/><rect x="35.285714285714285" y="2" width="15.142857142857142" height="26" class="on"/><rect x="52.42857142857143" y="13.50371181224455" width="15.142857142857142" height="14.49628818775545" class="on"/><rect x="69.57142857142857" y="22.773617227519622" width="15.142857142857142" height="5.226382772480376" class="on"/><rect x="86.71428571428571" y="24.822117529035612" width="15.142857142857142" height="3.1778824709643883" class="on"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c8">
+  <div class="media"><div class="phone play"><iframe src="media/monument_match.html" title="Monument Match playable" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><p class="mnote">Live playable, tap to try · v0.1.2 shown</p></div>
+  <div class="info">
+    <div class="rank">#9 by spend</div>
+    <h3>Monument Match</h3>
+    <div class="tags"><span class="tag pl">Playable</span><span class="tag soft">3 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$269.29</dd></div><div><dt>Installs</dt><dd>12</dd></div>
+      <div><dt>CPI</dt><dd>$22.44</dd></div><div><dt>IPM</dt><dd>1.66</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>75%</dd></div><div><dt>D7 level completes</dt><dd>10</dd></div>
+      <div><dt>D1 ROAS</dt><dd>1.5%</dd></div><div><dt>D7 ROAS</dt><dd>2.7%</dd></div>
+      <div><dt>D7 retention</dt><dd>8%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="2.3349705465365176" width="15.142857142857142" height="25.665029453463482" class="on"/><rect x="35.285714285714285" y="2" width="15.142857142857142" height="26" class="on"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="20.201812260557485" width="15.142857142857142" height="7.798187739442516" class="on"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c9">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#10 by spend</div>
+    <h3>The Racers: Result</h3>
+    <div class="tags"><span class="tag pl">Playable</span></div>
+    <p class="up">Uploaded Oct 19, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$263.11</dd></div><div><dt>Installs</dt><dd>10</dd></div>
+      <div><dt>CPI</dt><dd>$26.31</dd></div><div><dt>IPM</dt><dd>2.19</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>50%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.5%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="2" width="15.142857142857142" height="26" class="on"/><rect x="103.85714285714286" y="12.664433457853448" width="15.142857142857142" height="15.335566542146552" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c10">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#11 by spend</div>
+    <h3>Arc (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$250.02</dd></div><div><dt>Installs</dt><dd>5</dd></div>
+      <div><dt>CPI</dt><dd>$50.00</dd></div><div><dt>IPM</dt><dd>1.80</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>60%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.6%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c11">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#12 by spend</div>
+    <h3>The Racers: Podium</h3>
+    <div class="tags"><span class="tag pl">Playable</span></div>
+    <p class="up">Uploaded Oct 19, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$209.13</dd></div><div><dt>Installs</dt><dd>8</dd></div>
+      <div><dt>CPI</dt><dd>$26.14</dd></div><div><dt>IPM</dt><dd>2.63</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>25%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>3.3%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="2" width="15.142857142857142" height="26" class="on"/><rect x="103.85714285714286" y="21.931849186461587" width="15.142857142857142" height="6.068150813538413" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c12">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#13 by spend</div>
+    <h3>Conference (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$186.25</dd></div><div><dt>Installs</dt><dd>9</dd></div>
+      <div><dt>CPI</dt><dd>$20.69</dd></div><div><dt>IPM</dt><dd>3.22</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>67%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>1.1%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c13">
+  <div class="media"><div class="phone"><video src="media/nolanow.mp4" poster="media/nolanow.jpg" autoplay muted loop playsinline preload="metadata"></video></div></div>
+  <div class="info">
+    <div class="rank">#14 by spend</div>
+    <h3>Nola Now 50s</h3>
+    <div class="tags"><span class="tag mm">Video + Monument Match</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$133.99</dd></div><div><dt>Installs</dt><dd>15</dd></div>
+      <div><dt>CPI</dt><dd>$8.93</dd></div><div><dt>IPM</dt><dd>4.97</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>27%</dd></div><div><dt>D7 level completes</dt><dd>3</dd></div>
+      <div><dt>D1 ROAS</dt><dd>5.8%</dd></div><div><dt>D7 ROAS</dt><dd>9.6%</dd></div>
+      <div><dt>D7 retention</dt><dd>20%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="2" width="15.142857142857142" height="26" class="on"/><rect x="35.285714285714285" y="23.923829336298926" width="15.142857142857142" height="4.076170663701075" class="on"/><rect x="52.42857142857143" y="26" width="15.142857142857142" height="2" class="on"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="16.88640705823898" width="15.142857142857142" height="11.113592941761022" class="on"/><rect x="103.85714285714286" y="26" width="15.142857142857142" height="2" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c14">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#15 by spend</div>
+    <h3>Slide In (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$113.85</dd></div><div><dt>Installs</dt><dd>4</dd></div>
+      <div><dt>CPI</dt><dd>$28.46</dd></div><div><dt>IPM</dt><dd>2.01</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>100%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.0%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c15">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#16 by spend</div>
+    <h3>Elevator (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$105.15</dd></div><div><dt>Installs</dt><dd>2</dd></div>
+      <div><dt>CPI</dt><dd>$52.57</dd></div><div><dt>IPM</dt><dd>1.21</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>100%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>1.8%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c16">
+  <div class="media"><div class="phone play"><iframe src="media/price_match.html" title="Price Match playable" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><p class="mnote">Live playable, tap to try · iOS file shown</p></div>
+  <div class="info">
+    <div class="rank">#17 by spend</div>
+    <h3>Price Match</h3>
+    <div class="tags"><span class="tag pl">Playable</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Oct 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$92.44</dd></div><div><dt>Installs</dt><dd>3</dd></div>
+      <div><dt>CPI</dt><dd>$30.81</dd></div><div><dt>IPM</dt><dd>1.51</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>100%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>1.2%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="2" width="15.142857142857142" height="26" class="on"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c17">
+  <div class="media"><div class="phone"><video src="media/fishingspot.mp4" poster="media/fishingspot.jpg" autoplay muted loop playsinline preload="metadata"></video></div><p class="mnote">German cut of the same video</p></div>
+  <div class="info">
+    <div class="rank">#18 by spend</div>
+    <h3>Fishing Spot Meme 45s</h3>
+    <div class="tags"><span class="tag mm">Video + Monument Match</span><span class="tag soft">2 versions merged</span></div>
+    <p class="up">Uploaded Sep 23, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$89.81</dd></div><div><dt>Installs</dt><dd>10</dd></div>
+      <div><dt>CPI</dt><dd>$8.98</dd></div><div><dt>IPM</dt><dd>4.84</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>40%</dd></div><div><dt>D7 level completes</dt><dd>5</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.8%</dd></div><div><dt>D7 ROAS</dt><dd>1.4%</dd></div>
+      <div><dt>D7 retention</dt><dd>10%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="24.475556513468682" width="15.142857142857142" height="3.524443486531319" class="on"/><rect x="35.285714285714285" y="20.486770915930222" width="15.142857142857142" height="7.5132290840697795" class="on"/><rect x="52.42857142857143" y="2" width="15.142857142857142" height="26" class="on"/><rect x="69.57142857142857" y="26" width="15.142857142857142" height="2" class="on"/><rect x="86.71428571428571" y="26" width="15.142857142857142" height="2" class="on"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c18">
+  <div class="media"><div class="phone play"><iframe src="media/guess_flight.html" title="Guess the Flight Time playable" loading="lazy" sandbox="allow-scripts allow-popups"></iframe></div><p class="mnote">Live playable, tap to try</p></div>
+  <div class="info">
+    <div class="rank">#19 by spend</div>
+    <h3>Guess the Flight Time</h3>
+    <div class="tags"><span class="tag pl">Playable</span></div>
+    <p class="up">Uploaded Oct 1, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$84.31</dd></div><div><dt>Installs</dt><dd>4</dd></div>
+      <div><dt>CPI</dt><dd>$21.08</dd></div><div><dt>IPM</dt><dd>1.80</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>75%</dd></div><div><dt>D7 level completes</dt><dd>4</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.4%</dd></div><div><dt>D7 ROAS</dt><dd>1.0%</dd></div>
+      <div><dt>D7 retention</dt><dd>0%</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="18.968068947658878" width="15.142857142857142" height="9.031931052341122" class="on"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="24.236702105067334" width="15.142857142857142" height="3.7632978949326668" class="on"/><rect x="86.71428571428571" y="2" width="15.142857142857142" height="26" class="on"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c19">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#20 by spend</div>
+    <h3>Caught (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$54.37</dd></div><div><dt>Installs</dt><dd>2</dd></div>
+      <div><dt>CPI</dt><dd>$27.18</dd></div><div><dt>IPM</dt><dd>1.18</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>50%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>0.8%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c20">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#21 by spend</div>
+    <h3>Richard Memorial (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$29.50</dd></div><div><dt>Installs</dt><dd>2</dd></div>
+      <div><dt>CPI</dt><dd>$14.75</dd></div><div><dt>IPM</dt><dd>0.86</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>100%</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>3.0%</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="2" width="15.142857142857142" height="26" class="on"/></svg></dd></div>
+    </dl>
+  </div>
+</article>
+<article class="card" id="c21">
+  <div class="media"><div class="phone none"><div><b>Preview coming soon</b></div></div></div>
+  <div class="info">
+    <div class="rank">#22 by spend</div>
+    <h3>Nawlins News B (9x16)</h3>
+    <div class="tags"><span class="tag land">Video + Land end card</span></div>
+    <p class="up">Uploaded Oct 26, 2026</p>
+    <dl class="kv">
+      <div><dt>Spend</dt><dd>$0.00</dd></div><div><dt>Installs</dt><dd>0</dd></div>
+      <div><dt>CPI</dt><dd>–</dd></div><div><dt>IPM</dt><dd>0.00</dd></div>
+      <div><dt>D0 level complete rate</dt><dd>–</dd></div><div><dt>D7 level completes</dt><dd>–</dd></div>
+      <div><dt>D1 ROAS</dt><dd>–</dd></div><div><dt>D7 ROAS</dt><dd>–</dd></div>
+      <div><dt>D7 retention</dt><dd>–</dd></div><div><dt>Weekly spend</dt><dd><svg viewBox="0 0 120 28" class="spark" aria-hidden="true"><rect x="1" y="27" width="15.142857142857142" height="1" class="off"/><rect x="18.142857142857142" y="27" width="15.142857142857142" height="1" class="off"/><rect x="35.285714285714285" y="27" width="15.142857142857142" height="1" class="off"/><rect x="52.42857142857143" y="27" width="15.142857142857142" height="1" class="off"/><rect x="69.57142857142857" y="27" width="15.142857142857142" height="1" class="off"/><rect x="86.71428571428571" y="27" width="15.142857142857142" height="1" class="off"/><rect x="103.85714285714286" y="27" width="15.142857142857142" height="1" class="off"/></svg></dd></div>
+    </dl>
+  </div>
+</article></div>
+
+
+<footer>Source: Unity Ads dashboard, weekly export by creative pack. ROAS is network-side and spend-weighted when creatives are merged. A dash (–) means D7 is not ready yet: most of that creative's installs are less than 7 days old. Rates are weighted by installs. IPM = installs per 1,000 impressions.</footer>
+</div>
+</body></html>
